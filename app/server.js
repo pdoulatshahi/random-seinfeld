@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const port = process.ENV.port || 3000;
+
 const publicPath = path.join(__dirname, '../public');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,6 +26,4 @@ app.set('views', publicPath + '/views');
 
 require('./routes.js')(app);
 
-app.listen(3000, () => {
-  console.log('Server is up on port 3000');
-})
+app.listen(port);
