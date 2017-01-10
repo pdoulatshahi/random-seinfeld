@@ -1,0 +1,24 @@
+<div class="container">
+
+  <h2 class="center-align">{{episodeInfo.title}}</h3>
+
+  <h6 class="center-align">Season {{episodeInfo.seasonNumber}}, Episode {{episodeInfo.episodeNumber}}</h6>
+
+  <h6 class="center-align">Originally Aired {{episodeInfo.firstAired}}</h6>
+
+  <a class="embedly-card" href="{http://www.hulu.com/watch/{{episodeInfo.huluId}}"></a> <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
+
+  <div class="center-align">
+    <a target="_blank" href="http://www.imdb.com/title/{{episodeInfo.imdbId}}/">More info about this episode at IMDB</a>
+  </div>
+
+</div>
+
+<hr>
+
+<div class="container">
+
+  <p class="center-align">Search for another episode</p>
+  {{>episode_form}}
+
+</div>
