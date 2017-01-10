@@ -23,4 +23,4 @@ app.set('views', publicPath + '/views');
 
 require('./routes.js')(app);
 
-app.listen(process.env.port || 3000);
+app.listen(process.env.PORT || 3000);
