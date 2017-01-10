@@ -1,3 +1,29 @@
 const GUIDEBOX_KEY = 'd80667547535889b4a9c68f606d30e7b84cc974f';
 
-module.exports = GUIDEBOX_KEY;
+const request = require('request');
+const guidebox = require('guidebox');
+const moment = require('moment');
+const jsonfile = require('jsonfile');
+const Guidebox = new guidebox(GUIDEBOX_KEY);
+
+Guidebox.shows.episodes(2360, {include_links: true, limit: 180}).then((response) => {
+  var episodes = [];
+  var arrOfEps = response.results;
+  console.log(response.results.length);
+  response.results.forEach((episode) => {
+    if (episode.subscription_web_sources.length > 0) {
+      episodes.push({
+        title: episode.title,
+        seasonNumber: episode.season_number,
+        episodeNumber: episode.episode_number,
+        firstAired: moment(episode.first_aired, "YYYY-MM-DD").format("MMM D, YYYY"),
+        imdbId: episode.imdb_id,
+        huluLink: episode.subscription_web_sources[0].link,
+      })
+    }
+
+  })
+  jsonfile.writeFile('episodes.json', episodes, function (err) {
+    console.error(err);
+  })
+})

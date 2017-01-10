@@ -6,10 +6,9 @@
 
   <h6 class="center-align">Originally Aired {{episodeInfo.firstAired}}</h6>
 
-  <a class="embedly-card" href="{http://www.hulu.com/watch/{{episodeInfo.huluId}}"></a> <script async src="//cdn.embedly.com/widgets/platform.js" charset="UTF-8"></script>
-
-  <div class="center-align">
-    <a target="_blank" href="http://www.imdb.com/title/{{episodeInfo.imdbId}}/">More info about this episode at IMDB</a>
+  <div class="episode-buttons center-align">
+    <a class="waves-effect waves-red btn" target="_blank" href="{{episodeInfo.huluLink}}/">Watch at Hulu</a>
+    <a class="waves-effect waves-light btn" target="_blank" href="http://www.imdb.com/title/{{episodeInfo.imdbId}}/">More info at IMDB</a>
   </div>
 
 </div>
