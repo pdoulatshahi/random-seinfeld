@@ -6,8 +6,6 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const port = process.env.port || 3000;
-
 const publicPath = path.join(__dirname, '../public');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,4 +23,4 @@ app.set('views', publicPath + '/views');
 
 require('./routes.js')(app);
 
-app.listen(port);
+app.listen(process.env.port || 3000);
