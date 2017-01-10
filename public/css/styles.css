@@ -23,6 +23,9 @@ nav {
 .button-container {
   margin-top: 20px;
 }
+.episode-title {
+  text-transform: capitalize;
+}
 .episode-buttons {
   margin: 20px 0;
 }
