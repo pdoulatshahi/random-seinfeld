@@ -13,6 +13,8 @@ module.exports = (app) => {
   app.get('/randomEpisode', (req, res) => {
     var seasons = req.query.s;
     var episodes = JSON.parse(fs.readFileSync('episodes.json', 'utf8'));
+    var episodeInfo = [];
+    var variablesObj = {};
     if (seasons) {
       seasons = seasons.map((num) => {
         return parseInt(num)
@@ -20,9 +22,14 @@ module.exports = (app) => {
       episodes = episodes.filter((episode) => {
         return _.includes(seasons, episode.seasonNumber);
       });
+      episodeInfo = episodes[Math.floor(Math.random() * episodes.length)];
+      variablesObj = {episodeInfo, seasonArray, seasons}
+    } else {
+      episodeInfo = episodes[Math.floor(Math.random() * episodes.length)];
+      variablesObj = {episodeInfo, seasonArray}
     }
-    var episodeInfo = episodes[Math.floor(Math.random() * episodes.length)]
-    res.render('random_episode', {episodeInfo, seasonArray, seasons})
+    var episodeInfo =
+    res.render('random_episode', variablesObj);
   })
 
 };

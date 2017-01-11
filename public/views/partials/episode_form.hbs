@@ -3,7 +3,7 @@
   <div class="season-checkbox-container">
     {{#each seasonArray}}
       <div class="season-checkbox">
-        <input class="one-season-checkbox" type="checkbox" id="season_{{this}}" {{#ifIn this ../seasons}}checked{{/ifIn}} name="s[]" value="{{this}}"/>
+        <input class="one-season-checkbox" type="checkbox" id="season_{{this}}" {{#if ../seasons}}{{#ifIn this ../seasons}}checked{{/ifIn}}{{/if}} name="s[]" value="{{this}}"/>
         <label for="season_{{this}}">{{this}}</label>
       </div>
     {{/each}}
