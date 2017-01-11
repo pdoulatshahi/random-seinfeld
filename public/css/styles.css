@@ -3,19 +3,23 @@ body {
   min-height: 100vh;
   flex-direction: column;
 }
-
 main {
   flex: 1 0 auto;
 }
-
-nav {
+nav, footer.page-footer {
   background: #AAAAAA;
 }
-
+footer.page-footer {
+  padding: 10px 0;
+}
+footer.page-footer span {
+  color: white;
+}
 .season-radio-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .season-radio {
   padding: 0 10px;
