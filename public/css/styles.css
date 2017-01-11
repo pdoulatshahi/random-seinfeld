@@ -30,6 +30,14 @@ footer.page-footer span {
 .episode-title {
   text-transform: capitalize;
 }
+.img-container {
+  width: 500px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.img-preview {
+  width: 100%;
+}
 .episode-buttons {
   margin: 20px 0;
 }

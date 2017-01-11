@@ -9,7 +9,6 @@ const Guidebox = new guidebox(GUIDEBOX_KEY);
 Guidebox.shows.episodes(2360, {include_links: true, limit: 180}).then((response) => {
   var episodes = [];
   var arrOfEps = response.results;
-  console.log(response.results.length);
   response.results.forEach((episode) => {
     if (episode.subscription_web_sources.length > 0) {
       episodes.push({
@@ -19,11 +18,12 @@ Guidebox.shows.episodes(2360, {include_links: true, limit: 180}).then((response)
         firstAired: moment(episode.first_aired, "YYYY-MM-DD").format("MMM D, YYYY"),
         imdbId: episode.imdb_id,
         huluLink: episode.subscription_web_sources[0].link,
+        thumbnail: episode.thumbnail_208x117,
+        image: episode.thumbnail_608x342
       })
     }
 
   })
-  jsonfile.writeFile('episodes.json', episodes, function (err) {
-    console.error(err);
+  jsonfile.writeFile('episodes.json', episodes)
   })
 })
