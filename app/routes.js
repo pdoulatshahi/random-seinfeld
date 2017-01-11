@@ -2,14 +2,16 @@ const fs = require('fs');
 const jsonfile = require('jsonfile');
 const _ = require('lodash');
 
+const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
 module.exports = (app) => {
 
   app.get('/', function(req, res) {
-    res.render('index');
+    res.render('index', {seasonArray});
   });
 
   app.get('/randomEpisode', (req, res) => {
-    var seasons = req.param('s');
+    var seasons = req.query.s;
     var episodes = JSON.parse(fs.readFileSync('episodes.json', 'utf8'));
     if (seasons) {
       seasons = seasons.map((num) => {
@@ -20,7 +22,7 @@ module.exports = (app) => {
       });
     }
     var episodeInfo = episodes[Math.floor(Math.random() * episodes.length)]
-    res.render('random_episode', {episodeInfo})
+    res.render('random_episode', {episodeInfo, seasonArray, seasons})
   })
 
 };

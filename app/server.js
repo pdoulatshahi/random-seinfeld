@@ -15,7 +15,15 @@ app.engine('.hbs', exphbs({
   defaultLayout: 'layout',
   extname: '.hbs',
   layoutsDir: publicPath + '/views/layouts',
-  partialsDir: publicPath + '/views/partials'
+  partialsDir: publicPath + '/views/partials',
+  helpers: {
+    ifIn: function (elem, list, options) {
+      if (list.indexOf(parseInt(elem)) > -1) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    }
+  }
 }))
 
 app.set('view engine', '.hbs')

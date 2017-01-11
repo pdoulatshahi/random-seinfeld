@@ -41,3 +41,6 @@ footer.page-footer span {
 .episode-buttons {
   margin: 20px 0;
 }
+.episode-buttons a {
+  margin-bottom: 10px;
+}

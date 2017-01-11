@@ -15,6 +15,7 @@ Guidebox.shows.episodes(2360, {include_links: true, limit: 180}).then((response)
         title: episode.title,
         seasonNumber: episode.season_number,
         episodeNumber: episode.episode_number,
+        overview: episode.overview,
         firstAired: moment(episode.first_aired, "YYYY-MM-DD").format("MMM D, YYYY"),
         imdbId: episode.imdb_id,
         huluLink: episode.subscription_web_sources[0].link,
@@ -25,5 +26,4 @@ Guidebox.shows.episodes(2360, {include_links: true, limit: 180}).then((response)
 
   })
   jsonfile.writeFile('episodes.json', episodes)
-  })
 })

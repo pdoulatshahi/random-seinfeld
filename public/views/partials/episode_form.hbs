@@ -1,44 +1,15 @@
 <form action="/randomEpisode" method="get">
   <p class="center-align">Select your season(s) below. If you don't select one, the search defaults to all seasons.</p>
   <div class="season-checkbox-container">
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_1" name="s[]" value="1"/>
-      <label for="season_1">1</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_2" name="s[]" value="2"/>
-      <label for="season_2">2</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_3" name="s[]" value="3"/>
-      <label for="season_3">3</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_4" name="s[]" value="4"/>
-      <label for="season_4">4</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_5" name="s[]" value="5"/>
-      <label for="season_5">5</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_6" name="s[]" value="6"/>
-      <label for="season_6">6</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_7" name="s[]" value="7"/>
-      <label for="season_7">7</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_8" name="s[]" value="8"/>
-      <label for="season_8">8</label>
-    </div>
-    <div class="season-checkbox">
-      <input class="one-season-checkbox" type="checkbox" id="season_9" name="s[]" value="9"/>
-      <label for="season_9">9</label>
-    </div>
+    {{#each seasonArray}}
+      <div class="season-checkbox">
+        <input class="one-season-checkbox" type="checkbox" id="season_{{this}}" {{#ifIn this ../seasons}}checked{{/ifIn}} name="s[]" value="{{this}}"/>
+        <label for="season_{{this}}">{{this}}</label>
+      </div>
+    {{/each}}
   </div>
   <div class="button-container center-align">
-    <button class="waves-effect waves-light btn">Get Episode</button>
+    <button class="waves-effect waves-light btn" id="clear-seasons">clear seasons</button>
+    <button class="waves-effect waves-light btn">get episode</button>
   </div>
 </form>
