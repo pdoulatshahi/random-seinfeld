@@ -1,5 +1,6 @@
 const fs = require('fs');
 const jsonfile = require('jsonfile');
+const _ = require('lodash');
 
 module.exports = (app) => {
 
@@ -9,10 +10,12 @@ module.exports = (app) => {
 
   app.get('/randomEpisode', (req, res) => {
     var episodes = JSON.parse(fs.readFileSync('episodes.json', 'utf8'));
-    var season = req.param('season');
-    if (season) {
+    var seasons = req.param('s').map((num) => {
+      return parseInt(num)
+    });
+    if (seasons) {
       episodes = episodes.filter((episode) => {
-        return episode.seasonNumber === parseInt(season);
+        return _.includes(seasons, episode.seasonNumber);
       })
     }
     var episodeInfo = episodes[Math.floor(Math.random() * episodes.length)]
