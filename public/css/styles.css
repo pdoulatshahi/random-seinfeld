@@ -49,14 +49,6 @@ footer.page-footer span {
 #mobile-watch-link {
   display: none;
 }
-@media (max-width: 1068px) {
-  #web-watch-link {
-    display: none;
-  }
-  #mobile-watch-link {
-    display: inline-block;
-  }
-}
 @media (max-width: 768px) {
   .mobile-container {
     width: 100%;
