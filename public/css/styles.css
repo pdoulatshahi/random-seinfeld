@@ -44,3 +44,8 @@ footer.page-footer span {
 .episode-buttons a, .button-container .btn {
   margin-bottom: 10px;
 }
+@media (max-width: 768px) {
+  .mobile-container {
+    width: 100%;
+  }
+}
