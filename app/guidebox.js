@@ -1,6 +1,5 @@
 const GUIDEBOX_KEY = 'd80667547535889b4a9c68f606d30e7b84cc974f';
 
-const request = require('request');
 const guidebox = require('guidebox');
 const moment = require('moment');
 const jsonfile = require('jsonfile');
