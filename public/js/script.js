@@ -5,9 +5,9 @@ $(document).ready(() => {
   })
   if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     $("#web-watch-link").hide();
-    $("#mobile-watch-link").show();
+    $("#mobile-watch-link").css('display', 'inline-block');
   } else {
-    $("#web-watch-link").show();
+    $("#web-watch-link").css('display', 'inline-block');
     $("#mobile-watch-link").hide();
   }
 })
