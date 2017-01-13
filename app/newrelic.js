@@ -159,7 +159,7 @@ exports.config = {
      *
      * @env NEW_RELIC_LOG_ENABLED
      */
-    enabled: true,
+    enabled: false,
 
     /**
      * Enables extra debugging at `warn` level. No need to enable except under
