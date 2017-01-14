@@ -1,4 +1,5 @@
 require ('newrelic');
+require('./config/config');
 
 const express = require('express');
 const path = require('path');
@@ -32,4 +33,4 @@ app.set('views', publicPath + '/views');
 
 require('./routes.js')(app);
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT);
