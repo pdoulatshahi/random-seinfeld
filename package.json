@@ -17,6 +17,8 @@
     "jsonfile": "^2.4.0",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
+    "mongodb": "^2.2.21",
+    "mongoose": "^4.7.6",
     "newrelic": "^1.36.1"
   }
 }

@@ -1,6 +1,8 @@
 const fs = require('fs');
 const jsonfile = require('jsonfile');
 const _ = require('lodash');
+const {mongoose} = require('./db/mongoose');
+const {Episode} = require('./models/episode');
 
 const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
