@@ -1,5 +1,0 @@
-{
-	"undefined": "localhost/LOCAL_DB_NAME",
-	"dev": "localhost:27017/RandomSeinfeld",
-	"prod": "localhost/PROD_DB_NAME"
-}

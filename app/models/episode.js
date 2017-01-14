@@ -21,7 +21,6 @@ var Episode = mongoose.model('Episode', {
   },
   imdbId: {
     type: String,
-    required: true
   },
   thumbnail: {
     type: String,
@@ -38,7 +37,7 @@ var Episode = mongoose.model('Episode', {
   mobileLink: {
     type: String,
     required: true
-  }
+  },
 });
 
-module.exports = Episode
+module.exports = {Episode}
