@@ -9,17 +9,19 @@ Guidebox.shows.episodes(2360, {include_links: true, limit: 180}).then((response)
   var allEpisodes = [];
   response.results.forEach((episode) => {
     if (episode.subscription_web_sources.length > 0) {
-      allEpisodes.push({
+      newEpisode = {
         title: episode.title,
         season: episode.season_number,
         episode: episode.episode_number,
-        firstAired: moment(episode.first_aired, "YYYY-MM-DD"),
+        firstAired: moment(episode.first_aired, "YYYY-MM-DD").format("MMMM D, YYYY"),
         imdbId: episode.imdb_id,
         thumbnail: episode.thumbnail_208x117,
         image: episode.thumbnail_608x342,
         webLink: episode.subscription_web_sources[0].link,
         mobileLink: episode.subscription_ios_sources[0].link
-      });
+      }
+      allEpisodes.push(newEpisode);
+    }
   })
-  jsonfile.writeFile('seeds/episodes.json', allEpisodes)
+  jsonfile.writeFile('app/seeds/episodes.json', allEpisodes)
 })

@@ -1,6 +1,3 @@
-const fs = require('fs');
-const jsonfile = require('jsonfile');
-const _ = require('lodash');
 const {mongoose} = require('./db/mongoose');
 const {Episode} = require('./models/episode');
 
@@ -14,24 +11,26 @@ module.exports = (app) => {
 
   app.get('/randomEpisode', (req, res) => {
     var seasons = req.query.s;
-    var episodes = JSON.parse(fs.readFileSync('episodes.json', 'utf8'));
-    var episodeInfo = [];
-    var variablesObj = {};
+    var seasonOptions = {};
     if (seasons) {
-      seasons = seasons.map((num) => {
-        return parseInt(num)
-      });
-      episodes = episodes.filter((episode) => {
-        return _.includes(seasons, episode.seasonNumber);
-      });
-      episodeInfo = episodes[Math.floor(Math.random() * episodes.length)];
-      variablesObj = {episodeInfo, seasonArray, seasons}
-    } else {
-      episodeInfo = episodes[Math.floor(Math.random() * episodes.length)];
-      variablesObj = {episodeInfo, seasonArray}
+      seasons = seasons.map((num) => parseInt(num));
+      seasonOptions = {"season": {"$in": seasons}}
     }
-    var episodeInfo =
-    res.render('random_episode', variablesObj);
+    Episode.find(seasonOptions).then((episodes) => {
+      if (!episodes) {
+        return res.status(404).send();
+      }
+      var random = Math.floor(Math.random() * episodes.length);
+      var episode = episodes[random];
+      var varsObj = {
+        episode,
+        seasonArray,
+        seasons: seasons ? seasons : null
+      }
+      res.render('random_episode', varsObj);
+    }).catch((e) => {
+      res.status(400).send();
+    })
   })
 
 };

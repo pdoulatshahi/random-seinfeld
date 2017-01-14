@@ -2,13 +2,13 @@
 
   <p class="center-align">Your randomly selected episode of Seinfeld is:</p>
 
-  <h3 class="episode-title center-align">{{episodeInfo.title}}</h3>
+  <h3 class="episode-title center-align">{{episode.title}}</h3>
 </div>
 
 <div class="container mobile-container">
 
   <div class="center-align img-wrapper">
-    <div class="img-container lazyload"  style="background-image:url({{episodeInfo.thumbnail}})" data-bg="{{episodeInfo.image}}">
+    <div class="img-container lazyload"  style="background-image:url({{episode.thumbnail}})" data-bg="{{episode.image}}">
     </div>
   </div>
 
@@ -16,14 +16,14 @@
 
 <div class="container">
 
-  <h5 class="center-align">Season {{episodeInfo.seasonNumber}}, Episode {{episodeInfo.episodeNumber}}</h5>
+  <h5 class="center-align">Season {{episode.season}}, Episode {{episode.episode}}</h5>
 
-  <h5 class="center-align">Originally Aired {{episodeInfo.firstAired}}</h5>
+  <h5 class="center-align">Originally Aired {{episode.firstAired}}</h5>
 
   <div class="episode-buttons center-align">
-    <a class="waves-effect waves-red btn" id="web-watch-link" target="_blank" href="{{episodeInfo.webLink}}/">Watch at Hulu</a>
-    <a class="waves-effect waves-red btn" id="mobile-watch-link" target="_blank" href="{{episodeInfo.mobileLink}}/">Watch on Hulu App</a>
-    <a class="waves-effect waves-light btn" target="_blank" href="http://www.imdb.com/title/{{episodeInfo.imdbId}}/">More info at IMDB</a>
+    <a class="waves-effect waves-red btn" id="web-watch-link" target="_blank" href="{{episode.webLink}}/">Watch at Hulu</a>
+    <a class="waves-effect waves-red btn" id="mobile-watch-link" target="_blank" href="{{episode.mobileLink}}/">Watch on Hulu App</a>
+    <a class="waves-effect waves-light btn" target="_blank" href="http://www.imdb.com/title/{{episode.imdbId}}/">More info at IMDB</a>
   </div>
 
 </div>

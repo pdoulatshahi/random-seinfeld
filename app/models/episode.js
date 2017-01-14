@@ -16,7 +16,7 @@ var Episode = mongoose.model('Episode', {
     required: true
   },
   firstAired: {
-    type: Number,
+    type: String,
     required: true
   },
   imdbId: {
