@@ -15,6 +15,10 @@ var Episode = mongoose.model('Episode', {
     type: Number,
     required: true
   },
+  summary: {
+    type: String,
+    required: true
+  },
   firstAired: {
     type: String,
     required: true

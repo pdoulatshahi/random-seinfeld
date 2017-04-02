@@ -40,6 +40,10 @@ footer.page-footer span {
   padding-bottom: 56.25%;
   background-size: 100%;
 }
+.summary-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
 .episode-buttons {
   margin: 20px 0;
 }
