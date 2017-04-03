@@ -20,6 +20,7 @@
     "mongodb": "^2.2.21",
     "mongoose": "^4.7.6",
     "newrelic": "^1.36.1",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "slug": "^0.9.1"
   }
 }

@@ -7,6 +7,10 @@ var Episode = mongoose.model('Episode', {
     minlength: 1,
     trim: true
   },
+  slug: {
+    type: String,
+    required: true
+  },
   season: {
     type: Number,
     required: true,
