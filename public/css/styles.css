@@ -50,6 +50,10 @@ footer.page-footer span {
 .episode-buttons a, .button-container .btn {
   margin-bottom: 10px;
 }
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
 #mobile-watch-link {
   display: none;
 }

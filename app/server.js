@@ -34,4 +34,7 @@ app.set('views', publicPath + '/views');
 const rootRoutes = require('./routes/root');
 app.use('/', rootRoutes);
 
+const adminRoutes = require('./routes/admin');
+app.use('/admin', adminRoutes);
+
 app.listen(process.env.PORT);
