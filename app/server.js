@@ -31,6 +31,7 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs')
 app.set('views', publicPath + '/views');
 
-require('./routes.js')(app);
+const rootRoutes = require('./routes/root');
+app.use('/', rootRoutes);
 
 app.listen(process.env.PORT);
