@@ -11,7 +11,7 @@ var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    res.render('admin');
+    res.render('admin/index');
   })
 
   router.get('/login', (req, res) => {
@@ -29,18 +29,30 @@ module.exports = function(passport) {
     res.redirect('/admin/login')
   });
 
+  router.get('/episodes', ensureAuthenticated, (req, res) => {
+    Episode.find({}).then((episodes) => {
+      res.render('admin/episodes/index', {episodes})
+    })
+  })
+
+  router.get('/episodes/:slug/edit', ensureAuthenticated, (req, res) => {
+    Episode.findOne({'slug': req.params.slug}).then((episode) => {
+      res.render('admin/episodes/edit', {episode})
+    })
+  })
+
   router.get('/videos', ensureAuthenticated, (req, res) => {
     Video.find({}).then((videos) => {
-      res.render('admin/video/index', {videos});
+      res.render('admin/videos/index', {videos});
     })
 
   })
 
-  router.get('/video/new', ensureAuthenticated, (req, res) => {
-    res.render('admin/video/new')
+  router.get('/videos/new', ensureAuthenticated, (req, res) => {
+    res.render('admin/videos/new')
   })
 
-  router.post('/video/new', ensureAuthenticated, (req, res) => {
+  router.post('/videos/new', ensureAuthenticated, (req, res) => {
     var video = new Video();
     video.youTubeId = getYouTubeID(req.body.youtube_url);
     var episode = Episode.findOne({'title': req.body.episode_title}).then((ep) => {

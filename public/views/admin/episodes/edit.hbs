@@ -1,0 +1,48 @@
+<div class="container">
+
+  <h2 class="center-align">Edit Episode</h2>
+
+  <div class="form-container">
+    <form class="col s12" action="/admin/episodes/{{episode.id}}/edit" method="put">
+      <div class="row">
+        <div class="input-field col s6">
+          <input disabled id="title" type="text" name="title" value="{{episode.title}}"class="validate">
+          <label for="title">Title</label>
+        </div>
+        <div class="input-field col s3">
+          <input disabled id="season" type="text" name="season" value="{{episode.season}}" class="validate">
+          <label for="season">Season</label>
+        </div>
+        <div class="input-field col s3">
+          <input disabled id="episode" type="text" name="episode" value="{{episode.episode}}" class="validate">
+          <label for="episode">Episode</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s5">
+          <input id="firstAired" type="text" name="firstAired" value="{{episode.firstAired}}"class="validate">
+          <label for="firstAired">First Aired</label>
+        </div>
+        <div class="input-field col s5">
+          <input id="imdbId" type="text" name="imdbId" value="{{episode.imdbId}}"class="validate">
+          <label for="imdbId">IMDB ID</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="imdbRating" type="text" name="imdbRating" value="{{episode.imdbRating}}" class="validate">
+          <label for="imdbRating">IMDB Rating</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="summary" name="summary" class="materialize-textarea">{{episode.summary}}</textarea>
+          <label for="summary">Summary</label>
+        </div>
+      </div>
+      <div class="row center-align">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Add Video
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
