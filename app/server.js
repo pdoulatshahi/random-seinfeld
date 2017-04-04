@@ -48,8 +48,8 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs')
 app.set('views', publicPath + '/views');
 
-const rootRoutes = require('./routes/root');
-app.use('/', rootRoutes);
+const homeRoutes = require('./routes/home');
+app.use('/', homeRoutes);
 
 const adminRoutes = require('./routes/admin');
 app.use('/admin', adminRoutes(passport));

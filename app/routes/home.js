@@ -2,14 +2,13 @@ const {mongoose} = require('./../db/mongoose');
 const {Episode} = require('./../models/episode');
 const {Video} = require('./../models/video');
 
-
 const express = require('express');
 var router = express.Router();
 
 const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 router.get('/', function(req, res) {
-  res.render('index', {seasonArray});
+  res.render('home/index', {seasonArray});
 });
 
 router.get('/episodes/all', (req, res) => {
@@ -26,36 +25,44 @@ router.get('/episodes/all', (req, res) => {
   })
 })
 
-router.get('/randomEpisode', (req, res) => {
+router.get('/random-episode', (req, res) => {
   var seasons = req.query.s;
   var seasonOptions = {};
+  var seasonParams = '';
   if (seasons) {
     seasons = seasons.map((num) => parseInt(num));
-    seasonOptions = {"season": {"$in": seasons}}
+    seasonOptions = {"season": {"$in": seasons}};
+    seasonParams = '?s=' + seasons.join('&s[]=');
   }
   Episode.find(seasonOptions).then((episodes) => {
     if (!episodes) {
       return res.status(404).send();
     }
     var random = Math.floor(Math.random() * episodes.length);
-    var episode = episodes[random];
-    var varsObj = {
-      episode,
-      seasonArray,
-      seasons: seasons ? seasons : null
-    }
-    res.render('random_episode', varsObj);
+    var episodeSlug = episodes[random].slug;
+    res.redirect('/episode/' + episodeSlug + seasonParams);
   }).catch((e) => {
     res.status(400).send();
   })
 });
 
-router.get('/randomVideo', (req, res) => {
+router.get('/episode/:slug', (req, res) => {
+  var seasons = req.query.s;
+  if (seasons) {
+    seasons = seasons.map((num) => parseInt(num));
+  }
+  Episode.findOne({'slug': req.params.slug}).then((episode) => {
+    res.render('home/episode', {episode, seasons, seasonArray})
+  }).catch((e) => {
+    res.status(400).send();
+  })
+})
+
+router.get('/random-video', (req, res) => {
   Video.count().exec(function (err, count) {
     var random = Math.floor(Math.random() * count)
     Video.findOne().skip(random).populate('_episode').exec((err, video) => {
-      console.log(video)
-      res.render('random_video', {video})
+      res.render('home/random_video', {video})
     })
   })
 })
