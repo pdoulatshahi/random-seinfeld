@@ -21,7 +21,7 @@ module.exports = function(passport) {
     Admin.findOne({'email':  email}, function(err, admin) {
       if (err) return done(err);
       if (!admin)
-          return done(null, false, req.flash('loginMessage', 'No admin found with that e-mail address.'));
+          return done(null, false, req.flash('loginMessage', 'No admin found with that e-mail address'));
       if (!admin.comparePassword(password))
           return done(null, false, req.flash('loginMessage', 'Wrong password. Try again'));
       return done(null, admin);

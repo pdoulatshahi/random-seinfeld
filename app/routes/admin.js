@@ -8,7 +8,7 @@ var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', {messages: req.flash()});
   })
 
   router.post('/login', passport.authenticate('local-login', {
