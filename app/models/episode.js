@@ -46,6 +46,10 @@ var Episode = mongoose.model('Episode', {
     type: String,
     required: true
   },
+  videos: [{
+    type: String,
+    ref: 'Video'
+  }]
 });
 
 module.exports = {Episode}

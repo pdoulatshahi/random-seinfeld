@@ -17,6 +17,7 @@
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.2",
+    "get-youtube-id": "^1.0.0",
     "guidebox": "^1.1.1",
     "jsonfile": "^2.4.0",
     "lodash": "^4.17.4",
