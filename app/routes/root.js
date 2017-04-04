@@ -7,7 +7,8 @@ var router = express.Router();
 const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 router.get('/', function(req, res) {
-  res.render('index', {seasonArray});
+  console.log(res);
+  res.render('index');
 });
 
 router.get('/randomEpisode', (req, res) => {
