@@ -20,11 +20,11 @@ var Admin = mongoose.model('Admin', {
   }
 });
 
-Admin.schema.pre('save', function(next){
+Admin.schema.pre('save', function(next) {
   var admin = this;
-  bcrypt.genSalt(20, (err, salt) => {
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) return next(err);
-    bcrypt.hash(admin.password, salt, (err, hash) => {
+    bcrypt.hash(admin.password, salt, function(err, hash) {
       if (err) return next(err);
       admin.password = hash;
       next();
