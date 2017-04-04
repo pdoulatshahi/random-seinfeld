@@ -29,7 +29,7 @@ module.exports = function(passport) {
     res.redirect('/admin/login')
   });
 
-  router.get('/videos', (req, res) => {
+  router.get('/videos', ensureAuthenticated, (req, res) => {
     Video.find({}).then((videos) => {
       res.render('admin/video/index', {videos});
     })
