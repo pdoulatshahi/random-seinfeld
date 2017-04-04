@@ -30,6 +30,9 @@ var Episode = mongoose.model('Episode', {
   imdbId: {
     type: String,
   },
+  imdbRating: {
+    type: Number,
+  },
   thumbnail: {
     type: String,
     required: true
