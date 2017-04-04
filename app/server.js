@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -17,9 +18,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(publicPath));
 
 app.use(session({ secret: 'secret-thing' }));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
+});
 
 require('./config/passport')(passport);
 

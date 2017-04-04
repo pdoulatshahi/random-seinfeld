@@ -3,6 +3,11 @@
     <div class="container">
       <div class="nav-wrapper">
         <a href="/" class="brand-logo">Random Seinfeld</a>
+        {{#if user}}
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/admin/logout">Admin Logout</a></li>
+          </ul>
+        {{/if}}
       </div>
     </div>
   </nav>
