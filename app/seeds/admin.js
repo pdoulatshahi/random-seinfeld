@@ -8,7 +8,7 @@ var testAdmin = new Admin({
     firstName: 'Paul',
     lastName: 'Doulatshahi',
     email: 'paul.doulatshahi@gmail.com',
-    password: 'douly.33'
+    password: 'not-the-actual-one'
 });
 
 testAdmin.save().then((admin) => {

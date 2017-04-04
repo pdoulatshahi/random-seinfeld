@@ -5,6 +5,9 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -12,6 +15,13 @@ const publicPath = path.join(__dirname, '../public');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(publicPath));
+
+app.use(session({ secret: 'secret-thing' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+require('./config/passport')(passport);
 
 app.engine('.hbs', exphbs({
   defaultLayout: 'layout',
@@ -35,6 +45,6 @@ const rootRoutes = require('./routes/root');
 app.use('/', rootRoutes);
 
 const adminRoutes = require('./routes/admin');
-app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes(passport));
 
 app.listen(process.env.PORT);

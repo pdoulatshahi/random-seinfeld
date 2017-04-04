@@ -1,17 +1,21 @@
 const {mongoose} = require('./../db/mongoose');
 const {Episode} = require('./../models/episode');
 
+const passport = require('./../config/passport');
+
 const express = require('express');
 var router = express.Router();
 
-const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+module.exports = function(passport) {
+  router.get('/login', (req, res) => {
+    res.render('login');
+  })
 
-router.get('/login', (req, res) => {
-  res.render('login');
-})
+  router.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/admin',
+    failureRedirect: '/admin/login',
+    failureFlash: true,
+  }));
 
-router.post('/login', (req, res) => {
-  console.log(req.body);
-})
-
-module.exports = router;
+  return router;
+}
