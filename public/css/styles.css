@@ -6,8 +6,8 @@ body {
 main {
   flex: 1 0 auto;
 }
-nav, footer.page-footer {
-  background: #AAAAAA;
+nav .brand-logo {
+  font-size: 1.7em;
 }
 footer.page-footer {
   padding: 10px 0;

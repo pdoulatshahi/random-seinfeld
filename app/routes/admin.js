@@ -4,7 +4,7 @@ const {Video} = require('./../models/video');
 
 const passport = require('./../config/passport');
 
-const getYouTubeID = require('get-youtube-id');
+const getYouTubeId = require('get-youtube-id');
 
 const express = require('express');
 var router = express.Router();
@@ -45,7 +45,6 @@ module.exports = function(passport) {
     Video.find({}).then((videos) => {
       res.render('admin/videos/index', {videos});
     })
-
   })
 
   router.get('/videos/new', ensureAuthenticated, (req, res) => {
@@ -54,7 +53,7 @@ module.exports = function(passport) {
 
   router.post('/videos/new', ensureAuthenticated, (req, res) => {
     var video = new Video();
-    video.youTubeId = getYouTubeID(req.body.youtube_url);
+    video.youTubeId = getYouTubeId(req.body.youtube_url);
     var episode = Episode.findOne({'title': req.body.episode_title}).then((ep) => {
       if (!ep) return res.status(404).send();
       video._episode = ep._id;
@@ -69,7 +68,6 @@ module.exports = function(passport) {
         res.status(400).send(e);
       });
     })
-
   });
 
   return router;

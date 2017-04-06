@@ -54,4 +54,7 @@ app.use('/', homeRoutes);
 const adminRoutes = require('./routes/admin');
 app.use('/admin', adminRoutes(passport));
 
+const suggestRoutes = require('./routes/suggest');
+app.use('/suggest-video', suggestRoutes);
+
 app.listen(process.env.PORT);
