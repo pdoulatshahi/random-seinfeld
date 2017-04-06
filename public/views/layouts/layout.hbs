@@ -4,6 +4,7 @@
     <title>Random Seinfeld - Choose a Random Seinfeld Episode to Watch on Hulu</title>
     <link rel="stylesheet" href="/css/materialize.css">
     <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Merriweather+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{>meta}}
@@ -13,6 +14,11 @@
     {{> header}}
 
     <main>
+      <div class="messages">
+      </div>
+      <div class="container title-container">
+        <h1 class="center-align">{{pageTitle}}</h1>
+      </div>
       {{{body}}}
     </main>
 
@@ -25,6 +31,11 @@
     <script src="/js/plugins/analytics.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/autocomplete.js"></script>
+
+    {{#each messages}}
+      <script>Materialize.toast("{{this}}", 4000)</script>
+    {{/each}}
+
 
   </body>
 

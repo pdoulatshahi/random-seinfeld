@@ -10,4 +10,5 @@ $(document).ready(() => {
     $("#web-watch-link").css('display', 'inline-block');
     $("#mobile-watch-link").hide();
   }
+  $(".button-collapse").sideNav();
 })

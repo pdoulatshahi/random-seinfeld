@@ -1,9 +1,4 @@
-<div class="container">
 
-  <p class="center-align">Your randomly selected episode of Seinfeld is:</p>
-
-  <h3 class="episode-title center-align">{{episode.title}}</h3>
-</div>
 
 <div class="container mobile-container">
 
@@ -15,14 +10,35 @@
 </div>
 
 <div class="container">
+  <div class="episode-info-container">
+    <div class="card collection">
+      <table class="striped">
+        <tr>
+          <td class="left">Season</td>
+          <td class="right">{{episode.season}}</td>
+        </tr>
+        <tr>
+          <td class="left">Episode</td>
+          <td class="right">{{episode.episode}}</td>
+        </tr>
+        <tr>
+          <td class="left">Originally Aired</td>
+          <td class="right">{{episode.firstAired}}</td>
+        </tr>
+        <tr>
+          <td class="left">IMDB Rating</td>
+          <td class="right">{{episode.imdbRating}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
-  <h5 class="center-align">Season {{episode.season}}, Episode {{episode.episode}}</h5>
+
 
   <div class="summary-container">
     {{{episode.summary}}}
   </div>
 
-  <h5 class="center-align">Originally Aired {{episode.firstAired}}</h5>
 
   <div class="episode-buttons center-align">
     <a class="waves-effect waves-red btn" id="web-watch-link" target="_blank" href="{{episode.webLink}}/">Watch at Hulu</a>

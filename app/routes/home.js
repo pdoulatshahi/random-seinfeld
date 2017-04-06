@@ -8,7 +8,7 @@ var router = express.Router();
 const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 router.get('/', function(req, res) {
-  res.render('home/index', {seasonArray});
+  res.render('home/index', {seasonArray, pageTitle: 'The App About Nothing'});
 });
 
 router.get('/episodes/all', (req, res) => {
@@ -32,7 +32,7 @@ router.get('/random-episode', (req, res) => {
   if (seasons) {
     seasons = seasons.map((num) => parseInt(num));
     seasonOptions = {"season": {"$in": seasons}};
-    seasonParams = '?s=' + seasons.join('&s[]=');
+    seasonParams = '?s[]=' + seasons.join('&s[]=');
   }
   Episode.find(seasonOptions).then((episodes) => {
     if (!episodes) {
@@ -52,7 +52,7 @@ router.get('/episode/:slug', (req, res) => {
     seasons = seasons.map((num) => parseInt(num));
   }
   Episode.findOne({'slug': req.params.slug}).then((episode) => {
-    res.render('home/episode', {episode, seasons, seasonArray})
+    res.render('home/episode', {episode, seasons, seasonArray, pageTitle: episode.title})
   }).catch((e) => {
     res.status(400).send();
   })
@@ -62,7 +62,7 @@ router.get('/random-video', (req, res) => {
   Video.count().exec(function (err, count) {
     var random = Math.floor(Math.random() * count)
     Video.findOne().skip(random).populate('_episode').exec((err, video) => {
-      res.render('home/random_video', {video})
+      res.render('home/random_video', {video, pageTitle: 'Random Seinfeld Clip'})
     })
   })
 })
