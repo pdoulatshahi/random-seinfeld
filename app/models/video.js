@@ -9,7 +9,11 @@ var VideoSchema = new Schema({
   _episode: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Episode'
-  }
+  },
+  tags: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tag'
+  }]
 })
 
 var Video = mongoose.model('Video', VideoSchema)

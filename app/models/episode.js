@@ -50,7 +50,7 @@ var Episode = mongoose.model('Episode', {
     required: true
   },
   videos: [{
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Video'
   }]
 });

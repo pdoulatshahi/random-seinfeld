@@ -2,6 +2,7 @@ const {mongoose} = require('./../db/mongoose');
 const {Episode} = require('./../models/episode');
 const {Video} = require('./../models/video');
 const {SuggestedVideo} = require('./../models/suggestedVideo');
+const {Tag} = require('./../models/tag');
 
 const passport = require('./../config/passport');
 
@@ -74,6 +75,63 @@ module.exports = function(passport) {
   router.get('/suggestions', ensureAuthenticated, (req, res) => {
     SuggestedVideo.find({}).then((suggestedVideos) => {
       res.render('admin/suggest/index', {suggestedVideos, pageTitle: 'All Suggested Videos'})
+    }, (e) => {
+      res.status(400).send(e);
+    })
+  })
+
+  router.get('/tags', ensureAuthenticated, (req, res) => {
+    Tag.find({}).then((tags) => {
+      res.render('admin/tags/index', {tags, pageTitle: 'All Tags'})
+    }, (e) => {
+      res.status(400).send(e);
+    })
+  })
+
+  router.get('/tags/new', ensureAuthenticated, (req, res) => {
+    res.render('admin/tags/new', {pageTitle: 'Add Tag'})
+  })
+
+  router.post('/tags/new', ensureAuthenticated, (req, res) => {
+    var title = req.body.title;
+    Tag.findOne({'title': title}).then((tag) => {
+      if (tag) {
+        req.flash('error', 'Tag with that name already exists.');
+        res.redirect('/admin/tags/new');
+      } else {
+        newTag = new Tag({title})
+        newTag.save().then((newTag) => {
+          req.flash('success', 'Tag saved');
+          res.redirect('/admin/tags')
+        }, (e) => {
+          res.status(400).send(e);
+        })
+      }
+    })
+  })
+
+  router.get('/tags/:slug/edit', ensureAuthenticated, (req, res) => {
+    Tag.findOne({'slug': req.params.slug}).then((tag) => {
+      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags'})
+    }, (e) => {
+      res.status(400).send(e);
+    })
+  })
+
+  router.post('/tags/:slug/edit', ensureAuthenticated, (req, res) => {
+    Tag.findOne({'slug': req.params.slug}).then((tag) => {
+      if (!tag) {
+        req.flash('error', 'No tag found');
+        res.redirect('/admin/tags');
+      } else {
+        Tag.findOneAndUpdate({'slug': req.params.slug}, {title: req.body.title}).then((tag) => {
+          req.flash('success', 'Tag updated');
+          res.render('/admin/tags');
+        }, (e) => {
+          res.status(400).send(e);
+        })
+      }
+      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags'})
     }, (e) => {
       res.status(400).send(e);
     })
