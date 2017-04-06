@@ -47,7 +47,7 @@ footer.page-footer span {
 }
 .episode-info-container {
   max-width: 300px;
-  margin: 0 auto;
+  margin: 15px auto 0;
   font-size: 13px;
 }
 .episode-info-container .left {
