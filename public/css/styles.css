@@ -96,6 +96,13 @@ height: 100%;
   max-width: 700px;
   margin: 10px auto;
 }
+.chip {
+  font-size: 14px;
+  font-weight: bold;
+}
+.chip i {
+  font-size: 16px;
+}
 #mobile-watch-link {
   display: none;
 }

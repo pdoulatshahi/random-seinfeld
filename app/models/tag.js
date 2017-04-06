@@ -18,13 +18,6 @@ var TagSchema = new Schema({
   }],
 })
 
-TagSchema.pre('validate', function(next) {
-  console.log('running');
-  var tag = this;
-  tag.slug = slug(tag.title).toLowerCase();
-  next();
-});
-
 var Tag = mongoose.model('Tag', TagSchema)
 
 module.exports = {Tag}

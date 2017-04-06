@@ -7,6 +7,7 @@ const {Tag} = require('./../models/tag');
 const passport = require('./../config/passport');
 
 const getYouTubeId = require('get-youtube-id');
+const slug = require('slug');
 
 const express = require('express');
 var router = express.Router();
@@ -82,27 +83,28 @@ module.exports = function(passport) {
 
   router.get('/tags', ensureAuthenticated, (req, res) => {
     Tag.find({}).then((tags) => {
-      res.render('admin/tags/index', {tags, pageTitle: 'All Tags'})
+      res.render('admin/tags/index', {tags, pageTitle: 'All Tags', messages: req.flash()})
     }, (e) => {
       res.status(400).send(e);
     })
   })
 
   router.get('/tags/new', ensureAuthenticated, (req, res) => {
-    res.render('admin/tags/new', {pageTitle: 'Add Tag'})
+    res.render('admin/tags/new', {pageTitle: 'Add Tag', messages: req.flash()})
   })
 
   router.post('/tags/new', ensureAuthenticated, (req, res) => {
     var title = req.body.title;
-    Tag.findOne({'title': title}).then((tag) => {
+    var newSlug = slug(title).toLowerCase();
+    Tag.findOne({'slug': slug}).then((tag) => {
       if (tag) {
         req.flash('error', 'Tag with that name already exists.');
         res.redirect('/admin/tags/new');
       } else {
-        newTag = new Tag({title})
-        newTag.save().then((newTag) => {
+        var newTag = new Tag({title, slug: newSlug});
+        newTag.save().then((savedTag) => {
           req.flash('success', 'Tag saved');
-          res.redirect('/admin/tags')
+          res.redirect('/admin/tags');
         }, (e) => {
           res.status(400).send(e);
         })
@@ -112,28 +114,53 @@ module.exports = function(passport) {
 
   router.get('/tags/:slug/edit', ensureAuthenticated, (req, res) => {
     Tag.findOne({'slug': req.params.slug}).then((tag) => {
-      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags'})
+      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags', messages: req.flash()})
     }, (e) => {
       res.status(400).send(e);
     })
   })
 
   router.post('/tags/:slug/edit', ensureAuthenticated, (req, res) => {
-    Tag.findOne({'slug': req.params.slug}).then((tag) => {
+    var existingParams = {'slug': req.params.slug};
+    Tag.findOne(existingParams).then((tag) => {
       if (!tag) {
         req.flash('error', 'No tag found');
         res.redirect('/admin/tags');
       } else {
-        Tag.findOneAndUpdate({'slug': req.params.slug}, {title: req.body.title}).then((tag) => {
-          req.flash('success', 'Tag updated');
-          res.render('/admin/tags');
+        var newSlug = slug(req.body.title).toLowerCase();
+        Tag.findOne({'slug': newSlug}).then((tag) => {
+          if (tag) {
+            req.flash('error', 'Tag with that name already exists');
+            res.redirect(`/admin/tags/${req.params.slug}/edit`);
+          } else {
+            Tag.findOneAndUpdate({'slug': req.params.slug}, {title: req.body.title, slug: newSlug}).then((tag) => {
+              req.flash('success', 'Tag updated');
+              res.redirect('/admin/tags');
+            }, (e) => {
+              res.status(400).send(e);
+            })
+          }
+        })
+      }
+    })
+  })
+
+  router.get('/tags/:slug/delete', ensureAuthenticated, (req, res) => {
+    var existingParams = {'slug': req.params.slug};
+    Tag.findOne(existingParams).then((tag) => {
+      if (!tag) {
+        req.flash('error', 'No tag found');
+        res.redirect('/admin/tags');
+      } else {
+        Tag.remove(existingParams).then((tag) => {
+          req.flash('success', 'Tag deleted');
+          res.redirect('/admin/tags');
         }, (e) => {
           res.status(400).send(e);
         })
       }
-      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags'})
     }, (e) => {
-      res.status(400).send(e);
+      res.status(400).end(e);
     })
   })
 

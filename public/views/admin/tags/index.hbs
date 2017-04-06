@@ -1,9 +1,14 @@
 <div class="container">
 
-  <ul>
+  <div class="tags-container">
     {{#each tags}}
-      <li><a href="/admin/tags/{{this.slug}}/edit">{{this.title}}</a></li>
+      <div class="tag-container">
+        <div class="chip blue-grey lighten-4">
+          {{this.title}}
+          <i class="edit material-icons"><a href="/admin/tags/{{this.slug}}/edit">edit</a></i>
+        </div>
+      </div>
     {{/each}}
-  </ul>
+  </div>
 
 </div>
