@@ -61,6 +61,9 @@ td {
   margin: 0 auto;
   font-size: 16px;
 }
+.edit-button-container {
+  margin-top: 10px;
+}
 .episode-buttons {
   margin: 20px 0;
 }

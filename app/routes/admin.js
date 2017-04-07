@@ -73,6 +73,19 @@ module.exports = function(passport) {
     })
   });
 
+  router.get('/videos/:id/edit', ensureAuthenticated, (req, res) => {
+    Video.findById(req.params.id).then((video) => {
+      if (!video) {
+        req.flash('error', 'No video found.');
+        res.redirect('/admin/videos');
+      } else {
+        res.render('admin/videos/edit', {video, pageTitle: 'Edit Video'});
+      }
+    }, (e) => {
+      res.status(400).send(e);
+    })
+  })
+
   router.get('/suggestions', ensureAuthenticated, (req, res) => {
     SuggestedVideo.find({}).then((suggestedVideos) => {
       res.render('admin/suggest/index', {suggestedVideos, pageTitle: 'All Suggested Videos'})
