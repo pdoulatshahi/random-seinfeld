@@ -12,7 +12,6 @@ $(document).ready(() => {
   }
   $(".button-collapse").sideNav();
   $("#youtube_url").change(function() {
-    console.log("running");
     var inputtedUrl = $(this).val();
     var youtubeId = getId(inputtedUrl);
     var embedHTML = '<iframe width="560" height="315" src="//www.youtube.com/embed/' + youtubeId + '" frameborder="0" allowfullscreen></iframe>';
