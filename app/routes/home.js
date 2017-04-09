@@ -1,6 +1,7 @@
 const {mongoose} = require('./../db/mongoose');
 const {Episode} = require('./../models/episode');
 const {Video} = require('./../models/video');
+const {Tag} = require('./../models/tag');
 
 const express = require('express');
 var router = express.Router();
@@ -22,6 +23,20 @@ router.get('/episodes/all', (req, res) => {
     })
     res.setHeader('Content-Type', 'application/json');
     res.json(JSON.stringify(epJSON, null, 2));
+  })
+})
+
+router.get('/tags/all', (req, res) => {
+  Tag.find({}, 'title').then((tags) => {
+    if (!tags) {
+      return res.status(404).send();
+    }
+    var tagJSON = {}
+    tags.forEach((tag) => {
+      tagJSON[tag.title] = null;
+    })
+    res.setHeader('Content-Type', 'application/json');
+    res.json(JSON.stringify(tagJSON, null, 2));
   })
 })
 
@@ -61,7 +76,7 @@ router.get('/episode/:slug', (req, res) => {
 router.get('/random-video', (req, res) => {
   Video.count().exec(function (err, count) {
     var random = Math.floor(Math.random() * count)
-    Video.findOne().skip(random).populate('_episode').exec((err, video) => {
+    Video.findOne().skip(random).populate('_episode tags').exec((err, video) => {
       res.render('home/random_video', {video, pageTitle: 'Random Seinfeld Clip'})
     })
   })

@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var VideoSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  slug: {
+    type: String,
+    required: true
+  },
   youTubeId: {
     type: String,
     required: true
