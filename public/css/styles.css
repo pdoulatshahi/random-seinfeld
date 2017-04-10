@@ -14,6 +14,9 @@ main {
 nav .brand-logo {
   font-size: 1.7em;
 }
+.button-container {
+  margin-top: 20px;
+}
 footer.page-footer {
   padding: 10px 0;
 }
@@ -39,6 +42,9 @@ footer.page-footer span {
   width: 450px;
   max-width: 100%;
   margin: 0 auto;
+}
+.form-img-container {
+  margin-bottom: 20px;
 }
 .img-container {
   background-color: #E6E6E6;
@@ -110,9 +116,18 @@ height: 100%;
 #mobile-watch-link {
   display: none;
 }
+.admin-offset {
+  padding-left: 300px;
+}
+.side-nav li a.collapsible-header {
+  font-weight: bold;
+}
 @media (max-width: 992px) {
   .header-container {
     width: 100%;
+  }
+  .admin-offset {
+    padding-left: 0;
   }
 }
 @media (max-width: 768px) {

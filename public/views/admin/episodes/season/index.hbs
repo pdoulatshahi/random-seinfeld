@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    {{#each episodes}}
+       <div class="col l4 s12">
+         <div class="card blue-grey darken-1">
+           <div class="card-content white-text">
+             <span class="card-title">{{this.title}}</span>
+             <p>Season {{this.season}}, Episode {{this.episode}}</p>
+           </div>
+           <div class="card-action">
+             <a href="/admin/episodes/{{this.slug}}/edit">Edit Episode</a>
+           </div>
+         </div>
+       </div>
+    {{/each}}
+  </div>
+</div>

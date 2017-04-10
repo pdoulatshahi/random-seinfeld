@@ -25,6 +25,7 @@ app.use(flash());
 
 app.use(function(req, res, next) {
     res.locals.user = req.user;
+    res.locals.seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     next();
 });
 

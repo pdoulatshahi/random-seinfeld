@@ -8,7 +8,6 @@ const passport = require('./../config/passport');
 
 const getYouTubeId = require('get-youtube-id');
 const slug = require('slug');
-
 const async = require('async');
 
 const express = require('express');
@@ -31,18 +30,43 @@ module.exports = function(passport) {
 
   router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/admin/login')
+    res.redirect('/admin/login');
   });
 
   router.get('/episodes', ensureAuthenticated, (req, res) => {
-    Episode.find({}).then((episodes) => {
-      res.render('admin/episodes/index', {episodes, pageTitle: 'All Episodes'})
+    res.render('admin/episodes/index', {pageTitle: 'All Episodes'})
+  })
+
+  router.get('/episodes/season/:number', ensureAuthenticated, (req, res) => {
+    var season = req.params.number;
+    Episode.find({season}).sort('episode').then((episodes) => {
+      var pageTitle = "Episodes: Season " + season;
+      res.render('admin/episodes/season/index', {episodes, pageTitle});
     })
   })
 
   router.get('/episodes/:slug/edit', ensureAuthenticated, (req, res) => {
     Episode.findOne({'slug': req.params.slug}).then((episode) => {
       res.render('admin/episodes/edit', {episode, pageTitle: 'Edit Episode'})
+    })
+  })
+
+  router.post('/episodes/:slug/edit', ensureAuthenticated, (req, res) => {
+    Episode.findOne({slug: req.params.slug}).then((episode) => {
+      if (!episode) {
+        req.flash('error', 'No episode found');
+        res.redirect('/admin/episodes');
+      }
+      var updateParams = {
+        firstAired: req.body.firstAired,
+        imdbId: req.body.imdbId,
+        imdbRating: req.body.imdbRating,
+        summary: req.body.summary
+      }
+      episode.update(updateParams).then((savedEp) => {
+        req.flash('success', 'Episode saved successfully');
+        res.redirect('/admin/episodes/season/' + savedEp.season);
+      })
     })
   })
 
@@ -114,8 +138,8 @@ module.exports = function(passport) {
     });
   });
 
-  router.get('/videos/:id/edit', ensureAuthenticated, (req, res) => {
-    Video.findById(req.params.id).then((video) => {
+  router.get('/videos/:slug/edit', ensureAuthenticated, (req, res) => {
+    Video.find({slug: req.params.slug}).then((video) => {
       if (!video) {
         req.flash('error', 'No video found.');
         res.redirect('/admin/videos');
@@ -149,7 +173,7 @@ module.exports = function(passport) {
   })
 
   router.get('/tags', ensureAuthenticated, (req, res) => {
-    Tag.find({}).then((tags) => {
+    Tag.find().sort('title').then((tags) => {
       res.render('admin/tags/index', {tags, pageTitle: 'All Tags', messages: req.flash()})
     }, (e) => {
       res.status(400).send(e);
@@ -236,9 +260,7 @@ module.exports = function(passport) {
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    // req.user is available for use here
     return next(); }
-
   // denied. redirect to login
   res.redirect('/admin/login');
 }

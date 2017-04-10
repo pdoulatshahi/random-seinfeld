@@ -6,10 +6,8 @@ const {Tag} = require('./../models/tag');
 const express = require('express');
 var router = express.Router();
 
-const seasonArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
 router.get('/', function(req, res) {
-  res.render('home/index', {seasonArray, pageTitle: 'The App About Nothing'});
+  res.render('home/index', {pageTitle: 'The App About Nothing'});
 });
 
 router.get('/episodes/all', (req, res) => {
@@ -67,7 +65,7 @@ router.get('/episode/:slug', (req, res) => {
     seasons = seasons.map((num) => parseInt(num));
   }
   Episode.findOne({'slug': req.params.slug}).then((episode) => {
-    res.render('home/episode', {episode, seasons, seasonArray, pageTitle: episode.title})
+    res.render('home/episode', {episode, seasons, pageTitle: episode.title})
   }).catch((e) => {
     res.status(400).send();
   })

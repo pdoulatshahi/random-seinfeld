@@ -16,6 +16,10 @@
           <label for="episode">Episode</label>
         </div>
       </div>
+      <div class="center-align img-wrapper form-img-container">
+        <div class="img-container lazyload"  style="background-image:url({{episode.thumbnail}})" data-bg="{{episode.image}}">
+        </div>
+      </div>
       <div class="row">
         <div class="input-field col s5">
           <input id="firstAired" type="text" name="firstAired" value="{{episode.firstAired}}"class="validate">

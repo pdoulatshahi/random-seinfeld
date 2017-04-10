@@ -1,0 +1,55 @@
+<ul id="slide-out" class="side-nav fixed">
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header waves-effect waves-teal">Episodes (By Season)<i class="material-icons right">arrow_drop_down</i></a>
+        <div class="collapsible-body">
+          <ul class="collection">
+            {{#each seasonArray}}
+              <li class="collection-item"><a href="/admin/episodes/season/{{this}}">Season {{this}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header waves-effect waves-teal">Videos<i class="material-icons right">arrow_drop_down</i></a>
+        <div class="collapsible-body">
+          <ul class="collection">
+            <li class="collection-item"><a href="/admin/videos">All Videos</a></li>
+            <li class="collection-item"><a href="/admin/videos/new">Add Video</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header waves-effect waves-teal">Tags<i class="material-icons right">arrow_drop_down</i></a>
+        <div class="collapsible-body">
+          <ul class="collection">
+            <li class="collection-item"><a href="/admin/tags">All Tags</a></li>
+            <li class="collection-item"><a href="/admin/tags/new">Add Tag</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li class="no-padding">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header waves-effect waves-teal">Suggestions<i class="material-icons right">arrow_drop_down</i></a>
+        <div class="collapsible-body">
+          <ul>
+              <li><a href="/admin/suggestions">All Suggestions</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </li>
+
+</ul>

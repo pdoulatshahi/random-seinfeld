@@ -1,26 +1,24 @@
-<header>
-  <nav class="blue-grey lighten-1">
-    <div class="container header-container">
-      <div class="nav-wrapper">
-        <a href="/" class="brand-logo">Random Seinfeld</a>
-        <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/random-episode">Random Episode</a></li>
-            <li><a href="/random-video">Random Video</a></li>
-            <li><a href="/suggest-video">Suggest Video</a></li>
-            {{#if user}}
-              <li><a href="/admin/logout">Admin Logout</a></li>
-            {{/if}}
-          </ul>
-          <ul class="side-nav" id="mobile-nav">
-            <li><a href="/random-episode">Random Episode</a></li>
-            <li><a href="/random-video">Random Video</a></li>
-            <li><a href="/suggest-video">Suggest Video</a></li>
-            {{#if user}}
-              <li><a href="/admin/logout">Admin Logout</a></li>
-            {{/if}}
-          </ul>
-      </div>
+<nav class="blue-grey lighten-1">
+  <div class="container header-container">
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo">Random Seinfeld</a>
+      <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/random-episode">Random Episode</a></li>
+          <li><a href="/random-video">Random Video</a></li>
+          <li><a href="/suggest-video">Suggest Video</a></li>
+          {{#if user}}
+            <li><a href="/admin/logout">Admin Logout</a></li>
+          {{/if}}
+        </ul>
+        <ul class="side-nav" id="mobile-nav">
+          <li><a href="/random-episode">Random Episode</a></li>
+          <li><a href="/random-video">Random Video</a></li>
+          <li><a href="/suggest-video">Suggest Video</a></li>
+          {{#if user}}
+            <li><a href="/admin/logout">Admin Logout</a></li>
+          {{/if}}
+        </ul>
     </div>
-  </nav>
-</header>
+  </div>
+</nav>

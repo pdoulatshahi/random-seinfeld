@@ -1,8 +1,8 @@
 <div class="container">
 
-  <ul>
-    {{#each episodes}}
-      <li><a href="/admin/episodes/{{this.slug}}/edit">{{this.title}}</a></li>
+  <ul class="collection">
+    {{#each seasonArray}}
+      <li class="collection-item"><a href="/admin/episodes/season/{{this}}">Season {{this}}</a></li>
     {{/each}}
   </ul>
 
