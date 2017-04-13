@@ -58,4 +58,34 @@ app.use('/admin', adminRoutes(passport));
 const suggestRoutes = require('./routes/suggest');
 app.use('/suggest-video', suggestRoutes);
 
+app.use((req, res) => {
+  res.status(404);
+  if (req.accepts('html')) {
+    res.render('errors/404-500',
+    {
+      pageTitle: 'Page Not Found',
+      explainerText: 'That page cannot be found.'});
+    return;
+  }
+  if (req.accepts('json')) {
+    res.send({error: 'Not found'});
+    return;
+  }
+});
+
+app.use((req, res) => {
+  res.status(500);
+  if (req.accepts('html')) {
+    res.render('errors/404-500',
+    {
+      pageTitle: 'Internal Server Error',
+      explainerText: 'Sorry, there was an internal error.'});
+    return;
+  }
+  if (req.accepts('json')) {
+    res.send({error: 'Internal server error'});
+    return;
+  }
+});
+
 app.listen(process.env.PORT);
