@@ -6,10 +6,13 @@ const slug = require('slug');
 var TagSchema = new Schema({
   title: {
     type: String,
+    unique: true,
     required: true
   },
   slug: {
     type: String,
+    lowercase: true,
+    unique: true,
     required: true
   },
   videos: [{

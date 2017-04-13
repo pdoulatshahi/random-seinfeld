@@ -8,10 +8,12 @@ var VideoSchema = new Schema({
   },
   slug: {
     type: String,
+    lowercase: true,
     required: true
   },
   youTubeId: {
     type: String,
+    unique: true,
     required: true
   },
   _episode: {
