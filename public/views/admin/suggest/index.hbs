@@ -1,7 +1,15 @@
 <div class="container">
 
-  {{#each suggestedVideos}}
-    <a href="/admin/suggestions/{{this._id}}">{{this.youTubeId}}</a>
-  {{/each}}
-
+  {{#if suggestedVideos}}
+    <div class="collection">
+      {{#each suggestedVideos}}
+        <a href="/admin/suggested-videos/{{this._id}}/edit" class="collection-item">
+          <span class="suggested-span">{{this.title}}</span>
+          <span class="suggested-span">Submitted: {{this.createdAt}}</span>
+        </a>
+      {{/each}}
+    </div>
+  {{else}}
+    <p>No video suggestions as of now. Stay tuned!</p>
+  {{/if}}
 </div>

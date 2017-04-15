@@ -10,7 +10,7 @@ var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    SuggestedVideo.find({}).then((suggestedVideos) => {
+    SuggestedVideo.find({}).sort({createdAt: 'desc'}).then((suggestedVideos) => {
       res.render('admin/suggest/index', {suggestedVideos, pageTitle: 'All Suggested Videos'})
     }, (e) => {
       res.status(400).send(e);

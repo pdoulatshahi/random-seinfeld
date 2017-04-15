@@ -17,17 +17,20 @@ router.post('/', (req, res) => {
     req.flash('error', 'No YouTube ID found.');
     res.redirect('/suggest-video');
   }
-  Video.find({youTubeId: youTubeId}).then((videos) => {
-    if (videos) {
-      req.flash('error', 'YouTube video already in database.');
+  Video.findOne({youTubeId}).then((video) => {
+    console.log(video);
+    if (video) {
+      req.flash('error', 'That video is already in our database.');
       res.redirect('/suggest-video');
     }
     var suggestedVideo = new SuggestedVideo({
       youTubeId: youTubeId,
+      title: req.body.title,
       details: req.body.details
     })
     suggestedVideo.save().then((newSuggestedVideo) => {
-      res.redirect('/suggest-video/confirm', {pageTitle: 'Video Submitted'})
+      req.flash('success', 'Video submitted.')
+      res.redirect('/')
     }, (e) => {
       res.status(400).send(e);
     })

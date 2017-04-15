@@ -84,21 +84,6 @@ td {
   max-width: 540px;
   margin: 0 auto;
 }
-.video-container {
-position: relative;
-padding-bottom: 56.25%;
-padding-top: 30px; height: 0; overflow: hidden;
-}
-.video-container iframe,
-.video-container object,
-.video-container embed,
-.video-container div {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-}
 .toast {
   background-color: #ee6e73;
 }
@@ -118,6 +103,13 @@ height: 100%;
 }
 .side-nav li a.collapsible-header {
   font-weight: bold;
+}
+.suggested-span:first-child {
+  border-right: 1px solid black;
+  padding-right: 10px;
+}
+.suggested-span:last-child {
+  padding-left: 10px;
 }
 @media (max-width: 992px) {
   .header-container {

@@ -12,8 +12,17 @@
           <label for="youtube_url">YouTube URL</label>
         </div>
       </div>
+      <div id="yt-container" class="row video-container">
+        <iframe width="560" height="315" src="//www.youtube.com/embed/{{video.youTubeId}}" frameborder="0" allowfullscreen></iframe>
+      </div>
       <div class="row">
-        <p>Add any additional information about the clip below.</p>
+        <h5>Add any additional information about the clip below.</h5>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="title" type="text" name="title" class="validate">
+          <label for="title">Title</label>
+        </div>
       </div>
       <div class="row">
         <div class="input-field col s12">

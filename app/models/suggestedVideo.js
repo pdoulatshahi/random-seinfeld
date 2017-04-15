@@ -7,9 +7,11 @@ var SuggestedVideoSchema = new Schema({
     unique: true,
     required: true
   },
+  title: {
+    type: String
+  },
   details: {
     type: String,
-    required: true
   },
   createdAt: {
     type: Date,
