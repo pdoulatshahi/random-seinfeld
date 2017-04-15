@@ -18,7 +18,6 @@ router.post('/', (req, res) => {
     res.redirect('/suggest-video');
   }
   Video.findOne({youTubeId}).then((video) => {
-    console.log(video);
     if (video) {
       req.flash('error', 'That video is already in our database.');
       res.redirect('/suggest-video');

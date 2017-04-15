@@ -10,6 +10,5 @@ episodes.forEach((episode) => {
   ep = new Episode(episode);
   ep.save().then((ep) => {
   }, (e) => {
-    console.log(e);
   })
 })

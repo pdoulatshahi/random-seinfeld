@@ -59,7 +59,7 @@ module.exports = function(passport) {
       } else {
         var newSlug = slug(req.body.title).toLowerCase();
         Tag.findOne({'slug': newSlug}).then((tag) => {
-          if (tag) {
+          if (tag && newSlug !== req.params.slug) {
             req.flash('error', 'Tag with that name already exists');
             res.redirect(`/admin/tags/${req.params.slug}/edit`);
           } else {
@@ -75,7 +75,7 @@ module.exports = function(passport) {
     })
   })
 
-  router.get('/tags/:slug/delete', ensureAuthenticated, (req, res) => {
+  router.get('/:slug/delete', ensureAuthenticated, (req, res) => {
     var existingParams = {'slug': req.params.slug};
     Tag.findOne(existingParams).then((tag) => {
       if (!tag) {
