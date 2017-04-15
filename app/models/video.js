@@ -23,7 +23,12 @@ var VideoSchema = new Schema({
   tags: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tag'
-  }]
+  }],
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
 })
 
 var Video = mongoose.model('Video', VideoSchema)

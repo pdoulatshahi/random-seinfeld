@@ -7,7 +7,7 @@
           <iframe width="560" height="315" src="//www.youtube.com/embed/{{this.youTubeId}}" frameborder="0" allowfullscreen></iframe>
         </div>
         <ul class="collection">
-          <li class="collection-item"><a href="/admin/videos/{{this.slug}}/edit">{{this.title}}</a></li>
+          <li class="collection-item">{{this.title}}</li>
           {{#if this._episode}}
             <li class="collection-item">Episode: {{this._episode.title}}</li>
           {{/if}}
@@ -21,9 +21,14 @@
             </li>
           {{/if}}
         </ul>
+        <a href="/admin/videos/{{this.slug}}/edit" class="btn waves-effect waves-light">Edit Video
+          <i class="material-icons right">edit</i>
+        </a>
       </div>
     {{/each}}
   </div>
+
+  <hr>
 
   <div class="button-container">
     <a href="/admin/videos/new" class="btn waves-effect waves-light">Add Video

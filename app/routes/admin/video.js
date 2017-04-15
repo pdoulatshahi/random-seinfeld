@@ -83,11 +83,12 @@ module.exports = function(passport) {
   });
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
-    Video.find({slug: req.params.slug}).then((video) => {
+    Video.find({slug: req.params.slug}).populate('_episode tags').then((video) => {
       if (!video) {
         req.flash('error', 'No video found.');
         res.redirect('/admin/videos');
       } else {
+        console.log(video);
         res.render('admin/videos/form', {video, pageTitle: 'Edit Video'});
       }
     }, (e) => {

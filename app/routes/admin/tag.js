@@ -44,6 +44,10 @@ module.exports = function(passport) {
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
     Tag.findOne({'slug': req.params.slug}).then((tag) => {
+      if (!tag) {
+        req.flash('error', 'No tag found.');
+        res.redirect('/admin/tags');
+      }
       res.render('admin/tags/edit', {tag, pageTitle: 'All Tags'})
     }, (e) => {
       res.status(400).send(e);
