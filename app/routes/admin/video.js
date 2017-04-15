@@ -15,7 +15,7 @@ var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    Video.find({}).populate('tags _episode').then((videos) => {
+    Video.find({}).populate('_episode').then((videos) => {
       res.render('admin/videos/index', {videos, pageTitle: 'All Videos'});
     })
   })
@@ -25,88 +25,101 @@ module.exports = function(passport) {
   })
 
   router.post('/new', ensureAuthenticated, (req, res) => {
-    var title = req.body.title;
-    var titleSlug = slug(title).toLowerCase();
     var youTubeId = getYouTubeId(req.body.youtube_url);
     if (!youTubeId) {
       req.flash('error', 'Invalid or empty YouTube URL.');
       res.redirect('/admin/videos/new');
-    } else {
-      var video = new Video({title, slug: titleSlug, youTubeId});
     }
+    var title = req.body.title;
+    var titleSlug = slug(title).toLowerCase();
+    var video = new Video({title, slug: titleSlug, youTubeId});
     var tagTitleArray = req.body.tags.split(", ");
-    async.each(tagTitleArray, function(tagTitle, loopCallback) {
-      Tag.findOne({title: tagTitle}).then((tag) => {
-        if (!tag) {
-          req.flash('error', 'Invalid tag provided');
-          res.redirect('/admin/videos/new');
-        } else {
-          video.tags.push(tag._id);
-          loopCallback();
-        }
+    Tag.find({title: {"$in": tagTitleArray}}).then((tags) => {
+      var finalTagArray = [];
+      tags.forEach((tag) => {
+        finalTagArray.push({title: tag.title})
       });
-    }, function(err) {
-      if (err) { res.status(400).send(e) }
       var episodeTitle = req.body.episode_title;
       Episode.findOne({title: episodeTitle}).then((ep) => {
         if (ep) {
           video._episode = ep._id;
         }
+        video.tags = finalTagArray;
         video.save().then((savedVid) => {
-          if (video._episode) {
-            ep.videos.push(savedVid._id);
-            ep.save().then((savedEp) => {
-              async.each(savedVid.tags, function(tagId, loopCallback) {
-                Tag.findById(tagId).then((tag) => {
-                  tag.videos.push(savedVid._id);
-                  tag.save();
-                  loopCallback();
-                })
-              }, function(err){
-                res.redirect('/admin/videos');
-              })
-            })
-          } else {
-            async.each(savedVid.tags, function(tagId, loopCallback) {
-              Tag.findById(tagId).then((tag) => {
-                tag.videos.push(savedVid._id);
-                tag.save();
-                loopCallback();
-              })
-            }, function(err){
-              res.redirect('/admin/videos');
-            })
-          }
+          req.flash('success', 'Video saved');
+          res.redirect('/admin/videos');
         })
-      });
-    });
+      }).catch((e) => {
+        res.status(400).send(e);
+      })
+    }).catch((e) => {
+      res.status(400).send(e);
+    })
   });
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
-    Video.findOne({slug: req.params.slug}).populate('_episode tags').then((video) => {
+    Video.findOne({slug: req.params.slug}).populate('_episode').then((video) => {
       if (!video) {
         req.flash('error', 'No video found.');
         res.redirect('/admin/videos');
       }
-      videoTagArray = video.tags.map(tag => tag.title);
-      videoTagString = videoTagArray.join(', ');
-      res.render('admin/videos/form', {video, videoTagArray, videoTagString, pageTitle: 'Edit Video'});
+      res.render('admin/videos/form', {video, pageTitle: 'Edit Video'});
     }, (e) => {
       res.status(400).send(e);
     })
   })
 
-  router.post('/videos/:id/edit', ensureAuthenticated, (req, res) => {
-    var id = req.params.id;
-    Video.findById(id).then((video) => {
+  router.post('/:slug/edit', ensureAuthenticated, (req, res) => {
+    var existingParams = {'slug': req.params.slug};
+    var video = Video.findOne(existingParams).populate('_episode').then((video) => {
       if (!video) {
-        req.flash('error', 'No video found.');
+        req.flash('error', 'Cannot find video');
         res.redirect('/admin/videos');
-      } else {
-        Video.update({ _id: id}, {})
       }
+      console.log(video);
+      var title = req.body.title;
+      var titleSlug = slug(title).toLowerCase();
+      var youTubeId = getYouTubeId(req.body.youtube_url);
+      if (!youTubeId) {
+        req.flash('error', 'Invalid or empty YouTube URL.');
+        res.redirect('/admin/videos/');
+      }
+      var tagTitleArray = req.body.tags.split(", ");
+      Tag.find({title: {"$in": tagTitleArray}}).then((tags) => {
+        var finalTagArray = [];
+        tags.forEach((tag) => {
+          finalTagArray.push({title: tag.title})
+        });
+        console.log(finalTagArray);
+        var episodeTitle = req.body.episode_title;
+        Episode.findOne({title: episodeTitle}).then((ep) => {
+          if (ep) {
+            video._episode = ep._id;
+          }
+          video.title = title;
+          video.slug = titleSlug;
+          video.tags = finalTagArray;
+          video.youTubeId = youTubeId;
+          video.save().then((savedVid) => {
+            console.log(savedVid);
+            req.flash('success', 'Video saved');
+            res.redirect('/admin/videos');
+          })
+        }).catch((e) => {
+          res.status(400).send(e);
+        })
+      }).catch((e) => {
+        res.status(400).send(e);
+      })
     })
-  })
+  });
+
+
+
+
+
+
+
   return router;
 }
 

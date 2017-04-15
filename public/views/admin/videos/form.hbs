@@ -18,21 +18,15 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input type="text" name="episode_title" id="autocomplete-input" value="{{video.title}}" class="autocomplete">
+          <input type="text" name="episode_title" id="autocomplete-input" value="{{video._episode.title}}" class="autocomplete">
           <label for="autocomplete-input">Episode Title</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <div class="chips chips-initial chips-autocomplete">
-            {{#each videoTagArray}}
-              <div class="chip">
-                {{this}}
-                <i class="close material-icons">close</i>
-              </div>
-            {{/each}}
+          <div class="chips chips-autocomplete">
           </div>
-          <input type="hidden" name="tags" id="tags" value="{{videoTagString}}">
+          <input type="hidden" name="tags" id="tags">
         </div>
       </div>
       <div class="row center-align">

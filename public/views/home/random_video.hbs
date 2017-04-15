@@ -1,7 +1,22 @@
 <div class="container">
   <div class="youtube-container center-align">
     <div class="video-container">
-      <iframe width="853" height="480" src="https://www.youtube.com/embed/{{video.youTubeId}}" frameborder="0" allowfullscreen</iframe>
+      <iframe width="853" height="480" src="https://www.youtube.com/embed/{{video.youTubeId}}" frameborder="0" allowfullscreen></iframe>
     </div>
+    <ul class="collection">
+      <li class="collection-item">{{video.title}}</li>
+      {{#if video._episode}}
+        <li class="collection-item">Episode: <a href="/episode/{{video._episode.slug}}">{{video._episode.title}}</a></li>
+      {{/if}}
+      {{#if video.tags}}
+        <li class="collection-item">
+          {{#each video.tags}}
+            <div class="chip blue-grey lighten-4">
+              {{this.title}}
+            </div>
+          {{/each}}
+        </li>
+      {{/if}}
+    </ul>
   </div>
 </div>
