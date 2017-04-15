@@ -1,16 +1,15 @@
-
 <div class="container">
   <div class="form-container">
     <form autocomplete="off" action={{#if video}}"/admin/videos/{{video.slug}}/edit"{{else}}"/admin/videos/new"{{/if}} method="post">
       <div class="row">
         <div class="input-field col s12">
-          <input id="title" type="text" name="title" class="validate" value="{{video.title}}">
+          <input id="title" type="text" name="title" value="{{video.title}}">
           <label for="title">Title</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="youtube_url" type="text" name="youtube_url" class="validate" value="{{#if video}}http://www.youtube.com/{{video.youTubeId}}{{/if}}">
+          <input id="youtube_url" type="text" name="youtube_url" value="{{#if video}}http://www.youtube.com/{{video.youTubeId}}{{/if}}">
           <label for="youtube_url">YouTube URL</label>
         </div>
       </div>
@@ -26,8 +25,14 @@
       <div class="row">
         <div class="input-field col s12">
           <div class="chips chips-initial chips-autocomplete">
+            {{#each videoTagArray}}
+              <div class="chip">
+                {{this}}
+                <i class="close material-icons">close</i>
+              </div>
+            {{/each}}
           </div>
-          <input type="hidden" name="tags" id="tags" value="{{video.tags}}">
+          <input type="hidden" name="tags" id="tags" value="{{videoTagString}}">
         </div>
       </div>
       <div class="row center-align">

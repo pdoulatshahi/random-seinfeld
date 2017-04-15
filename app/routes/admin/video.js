@@ -83,14 +83,14 @@ module.exports = function(passport) {
   });
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
-    Video.find({slug: req.params.slug}).populate('_episode tags').then((video) => {
+    Video.findOne({slug: req.params.slug}).populate('_episode tags').then((video) => {
       if (!video) {
         req.flash('error', 'No video found.');
         res.redirect('/admin/videos');
-      } else {
-        console.log(video);
-        res.render('admin/videos/form', {video, pageTitle: 'Edit Video'});
       }
+      videoTagArray = video.tags.map(tag => tag.title);
+      videoTagString = videoTagArray.join(', ');
+      res.render('admin/videos/form', {video, videoTagArray, videoTagString, pageTitle: 'Edit Video'});
     }, (e) => {
       res.status(400).send(e);
     })
