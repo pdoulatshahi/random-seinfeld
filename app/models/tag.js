@@ -14,11 +14,7 @@ var TagSchema = new Schema({
     lowercase: true,
     unique: true,
     required: true
-  },
-  videos: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Video'
-  }],
+  }
 })
 
 var Tag = mongoose.model('Tag', TagSchema)
