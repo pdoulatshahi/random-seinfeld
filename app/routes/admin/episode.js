@@ -17,21 +17,22 @@ module.exports = function(passport) {
       var episodes = _.sortBy(episodes, 'episode');
       episodes = _.groupBy(episodes, 'season');
       res.render('admin/episodes/index', {episodes, pageTitle: 'All Episodes'});
-    }).catch((err) => {
-      console.log(err);
-      res.status(400).send(err);
+    }).catch((e) => {
+      res.status(400).send(e);
     })
   });
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
     Episode.findOne({'slug': req.params.slug}).then((episode) => {
       if (!episode) {
-        req.flash('error', 'No Episode');
+        req.flash('error', 'No Episode found');
         res.redirect('/admin/episodes');
       }
       res.render('admin/episodes/edit', {episode, pageTitle: 'Edit Episode'})
+    }).catch((e) => {
+      res.status(400).send(e);
     })
-  })
+  });
 
   router.post('/:slug/edit', ensureAuthenticated, (req, res) => {
     Episode.findOne({slug: req.params.slug}).then((episode) => {
@@ -48,15 +49,19 @@ module.exports = function(passport) {
       episode.update(updateParams).then((savedEp) => {
         req.flash('success', 'Episode saved successfully');
         res.redirect('/admin/episodes/');
+      }).catch((e) => {
+        res.status(400).send(e);
       })
+    }).catch((e) => {
+      res.status(400).send(e);
     })
-  })
+  });
+
   return router;
 }
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next(); }
-  // denied. redirect to login
   res.redirect('/admin/login');
 }

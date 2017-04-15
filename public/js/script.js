@@ -17,6 +17,7 @@ $(document).ready(() => {
     var embedHTML = '<iframe width="560" height="315" src="//www.youtube.com/embed/' + youtubeId + '" frameborder="0" allowfullscreen></iframe>';
     $("#yt-container").html(embedHTML);
   });
+  $(".dropdown-button").dropdown();
 })
 
 function getId(url) {

@@ -12,14 +12,11 @@
 
   <body>
 
-    <header {{#if user}}class="admin-offset"{{/if}}>
+    <header>
       {{> header}}
-      {{#if user}}
-        {{>sidenav}}
-      {{/if}}
     </header>
 
-    <main {{#if user}} class="admin-offset"{{/if}}>
+    <main>
       <div class="messages">
       </div>
       <div class="container title-container">

@@ -8,7 +8,7 @@
           <li><a href="/random-video">Random Video</a></li>
           <li><a href="/suggest-video">Suggest Video</a></li>
           {{#if user}}
-            <li><a href="/admin/logout">Admin Logout</a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="admin-dropdown">Admin<i class="material-icons right">arrow_drop_down</i></a></li>
           {{/if}}
         </ul>
         <ul class="side-nav" id="mobile-nav">
@@ -22,3 +22,8 @@
     </div>
   </div>
 </nav>
+<ul id="admin-dropdown" class="dropdown-content">
+  <li><a href="/admin">Admin Dashboard</a></li>
+  <li class="divider"></li>
+  <li><a href="/admin/logout">Logout</a></li>
+</ul>

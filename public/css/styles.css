@@ -116,18 +116,12 @@ height: 100%;
 #mobile-watch-link {
   display: none;
 }
-.admin-offset {
-  padding-left: 300px;
-}
 .side-nav li a.collapsible-header {
   font-weight: bold;
 }
 @media (max-width: 992px) {
   .header-container {
     width: 100%;
-  }
-  .admin-offset {
-    padding-left: 0;
   }
 }
 @media (max-width: 768px) {
