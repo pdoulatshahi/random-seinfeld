@@ -26,7 +26,7 @@ module.exports = function(passport) {
   router.post('/new', ensureAuthenticated, (req, res) => {
     var title = req.body.title;
     var newSlug = slug(title).toLowerCase();
-    Tag.findOne({'slug': slug}).then((tag) => {
+    Tag.findOne({'slug': newSlug}).then((tag) => {
       if (tag) {
         req.flash('error', 'Tag with that name already exists.');
         res.redirect('/admin/tags/new');
@@ -63,7 +63,7 @@ module.exports = function(passport) {
             req.flash('error', 'Tag with that name already exists');
             res.redirect(`/admin/tags/${req.params.slug}/edit`);
           } else {
-            Tag.findOneAndUpdate({'slug': req.params.slug}, {title: req.body.title, slug: newSlug}).then((tag) => {
+            Tag.findOneAndUpdate(existingParams, {title: req.body.title, slug: newSlug}).then((tag) => {
               req.flash('success', 'Tag updated');
               res.redirect('/admin/tags');
             }, (e) => {
