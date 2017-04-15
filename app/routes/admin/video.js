@@ -15,7 +15,7 @@ var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    Video.find({}).then((videos) => {
+    Video.find({}).populate('tags _episode').then((videos) => {
       res.render('admin/videos/index', {videos, pageTitle: 'All Videos'});
     })
   })
