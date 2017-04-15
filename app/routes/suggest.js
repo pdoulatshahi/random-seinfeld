@@ -8,7 +8,7 @@ const express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('suggest/new', {messages: req.flash(), pageTitle: 'Suggest a Video'});
+  res.render('suggest/new', {pageTitle: 'Suggest a Video'});
 });
 
 router.post('/', (req, res) => {

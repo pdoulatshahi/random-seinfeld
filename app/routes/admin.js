@@ -19,7 +19,7 @@ module.exports = function(passport) {
   })
 
   router.get('/login', (req, res) => {
-    res.render('admin/login', {messages: req.flash(), pageTitle: 'Admin Login'});
+    res.render('admin/login', {pageTitle: 'Admin Login'});
   })
 
   router.post('/login', passport.authenticate('local-login', {

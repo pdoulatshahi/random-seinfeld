@@ -1,8 +1,17 @@
 <div class="container">
 
-  <ul class="collection">
-    {{#each seasonArray}}
-      <li class="collection-item"><a href="/admin/episodes/season/{{this}}">Season {{this}}</a></li>
+  <ul class="collapsible popout" data-collapsible="accordion">
+    {{#each episodes}}
+      <li>
+        <div class="collapsible-header"><i class="material-icons">video_library</i>Season {{@key}}</div>
+        <div class="collapsible-body">
+          <div class="collection">
+            {{#each this}}
+              <a href="/admin/episodes/{{this.slug}}/edit" class="collection-item">{{this.episode}}. {{this.title}}</a>
+            {{/each}}
+          </div>
+        </div>
+      </li>
     {{/each}}
   </ul>
 

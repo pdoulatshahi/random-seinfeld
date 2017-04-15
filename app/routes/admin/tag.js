@@ -13,14 +13,14 @@ var router = express.Router();
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
     Tag.find().sort('title').then((tags) => {
-      res.render('admin/tags/index', {tags, pageTitle: 'All Tags', messages: req.flash()})
+      res.render('admin/tags/index', {tags, pageTitle: 'All Tags'})
     }, (e) => {
       res.status(400).send(e);
     })
   })
 
   router.get('/new', ensureAuthenticated, (req, res) => {
-    res.render('admin/tags/new', {pageTitle: 'Add Tag', messages: req.flash()})
+    res.render('admin/tags/new', {pageTitle: 'Add Tag'})
   })
 
   router.post('/new', ensureAuthenticated, (req, res) => {
@@ -44,7 +44,7 @@ module.exports = function(passport) {
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
     Tag.findOne({'slug': req.params.slug}).then((tag) => {
-      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags', messages: req.flash()})
+      res.render('admin/tags/edit', {tag, pageTitle: 'All Tags'})
     }, (e) => {
       res.status(400).send(e);
     })

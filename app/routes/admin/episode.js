@@ -2,24 +2,33 @@ const {mongoose} = require('./../../db/mongoose');
 const {Episode} = require('./../../models/episode');
 
 const passport = require('./../../config/passport');
+
+const _ = require('lodash');
+
 const express = require('express');
 var router = express.Router({mergeParams: true});
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    res.render('admin/episodes/index', {pageTitle: 'All Episodes'})
-  })
-
-  router.get('/season/:number', ensureAuthenticated, (req, res) => {
-    var season = req.params.number;
-    Episode.find({season}).sort('episode').then((episodes) => {
-      var pageTitle = "Episodes: Season " + season;
-      res.render('admin/episodes/season/index', {episodes, pageTitle});
+    Episode.find({}).then((episodes) => {
+      if (!episodes) {
+        res.status(400).send('Episodes not found');
+      }
+      var episodes = _.sortBy(episodes, 'episode');
+      episodes = _.groupBy(episodes, 'season');
+      res.render('admin/episodes/index', {episodes, pageTitle: 'All Episodes'});
+    }).catch((err) => {
+      console.log(err);
+      res.status(400).send(err);
     })
-  })
+  });
 
   router.get('/:slug/edit', ensureAuthenticated, (req, res) => {
     Episode.findOne({'slug': req.params.slug}).then((episode) => {
+      if (!episode) {
+        req.flash('error', 'No Episode');
+        res.redirect('/admin/episodes');
+      }
       res.render('admin/episodes/edit', {episode, pageTitle: 'Edit Episode'})
     })
   })
@@ -38,7 +47,7 @@ module.exports = function(passport) {
       }
       episode.update(updateParams).then((savedEp) => {
         req.flash('success', 'Episode saved successfully');
-        res.redirect('/admin/episodes/season/' + savedEp.season);
+        res.redirect('/admin/episodes/');
       })
     })
   })

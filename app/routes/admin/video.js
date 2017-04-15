@@ -21,7 +21,7 @@ module.exports = function(passport) {
   })
 
   router.get('/new', ensureAuthenticated, (req, res) => {
-    res.render('admin/videos/form', {pageTitle: 'Add Video', messages: req.flash()})
+    res.render('admin/videos/form', {pageTitle: 'Add Video'})
   })
 
   router.post('/new', ensureAuthenticated, (req, res) => {
