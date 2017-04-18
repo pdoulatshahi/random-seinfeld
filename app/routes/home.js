@@ -65,7 +65,9 @@ router.get('/episode/:slug', (req, res) => {
     seasons = seasons.map((num) => parseInt(num));
   }
   Episode.findOne({'slug': req.params.slug}).then((episode) => {
-    episode.writers = episode.writers.join(', ');
+    if (episode.writers.length > 0) {
+      episode.writers = episode.writers.join(', ');
+    }
     res.render('home/episode', {episode, seasons, pageTitle: episode.title})
   }).catch((e) => {
     res.status(400).send();

@@ -1,6 +1,10 @@
 require('./../config/config');
 
-const {mongoose} = require('./../db/mongoose');
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://heroku_09swj8s4:6puc1s1ibi41v54lb90hq41r8s@ds111589.mlab.com:11589/heroku_09swj8s4');
+
 const {Episode} = require('./../models/episode');
 
 const omdb = require('omdb');

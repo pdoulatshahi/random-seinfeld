@@ -51,12 +51,15 @@ footer.page-footer span {
   padding-bottom: 56.25%;
   background-size: 100%;
 }
-.episode-info-container {
+.video-info-container {
   max-width: 550px;
   margin: 15px auto 0;
-  font-size: 13px;
+  font-size: 14px;
 }
 .episode-info-container .left {
+  font-weight: bold;
+}
+td.left {
   font-weight: bold;
 }
 td {
