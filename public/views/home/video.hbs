@@ -3,21 +3,32 @@
     <div class="video-container">
       <iframe width="853" height="480" src="https://www.youtube.com/embed/{{video.youTubeId}}" frameborder="0" allowfullscreen></iframe>
     </div>
-    <ul class="collection">
-      <li class="collection-item">{{video.title}}</li>
-      {{#if video._episode}}
-        <li class="collection-item">Episode: <a href="/episode/{{video._episode.slug}}">{{video._episode.title}}</a></li>
-      {{/if}}
-      {{#if video.tags}}
-        <li class="collection-item">
-          Get another video from:
-          {{#each video.tags}}
-            <div class="chip blue-grey lighten-4">
-              <a href="/random-video?tag={{this.slug}}">{{this.title}}</a>
-            </div>
-          {{/each}}
-        </li>
-      {{/if}}
-    </ul>
+
+    <div class="episode-info-container">
+      <div class="card collection">
+        <table class="striped">
+          {{#if video._episode}}
+            <tr>
+              <td class="left">Episode</td>
+              <td class="right-align">
+                <div class="chip blue-grey lighten-4">
+                  <a href="/episode/{{video._episode.slug}}">{{video._episode.title}}</a>
+                </div>
+              </td>
+            </tr>
+          {{/if}}
+          {{#if video.tags}}
+            <td class="left">Tags</td>
+            <td class="right-align">
+              {{#each video.tags}}
+                <div class="chip blue-grey lighten-4">
+                  <a href="/random-video?tag={{this.slug}}">{{this.title}}</a>
+                </div>
+              {{/each}}
+            </td>
+          {{/if}}
+        </table>
+      </div>
+    </div>
   </div>
 </div>

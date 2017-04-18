@@ -105,7 +105,7 @@ router.get('/random-video', (req, res) => {
 
 router.get('/video/:slug', (req, res) => {
   Video.findOne({slug: req.params.slug}).populate('tags _episode').then((video) => {
-    res.render('home/video', {video})
+    res.render('home/video', {video, pageTitle: 'Random Seinfeld Clip'})
   }).catch((e) => {
     res.status(400).send();
   })
