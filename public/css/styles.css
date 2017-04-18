@@ -39,7 +39,7 @@ footer.page-footer span {
   text-transform: capitalize;
 }
 .img-wrapper {
-  width: 450px;
+  width: 500px;
   max-width: 100%;
   margin: 0 auto;
 }
@@ -52,7 +52,7 @@ footer.page-footer span {
   background-size: 100%;
 }
 .episode-info-container {
-  max-width: 300px;
+  max-width: 550px;
   margin: 15px auto 0;
   font-size: 13px;
 }

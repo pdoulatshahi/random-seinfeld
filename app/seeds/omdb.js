@@ -5,6 +5,7 @@ const {Episode} = require('./../models/episode');
 
 const omdb = require('omdb');
 const imdb = require('imdb-api');
+const _ = require('lodash');
 
 // imdb.get('Seinfeld').then((things) => {
 //   things.episodes().then((episodes) => {
@@ -19,7 +20,9 @@ Episode.find({}).then((episodes) => {
   episodes.forEach((episode) => {
     if (episode.imdbId.length > 0) {
       omdb.get({imdb: episode.imdbId}, (err, ep) => {
-        Episode.findOneAndUpdate({'imdbId': episode.imdbId}, ep.imdb.rating)
+        var writers = _.uniq(ep.writers).sort();
+        episode.writers = writers;
+        episode.save();
       })
     }
   })

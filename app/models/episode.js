@@ -58,6 +58,9 @@ var Episode = mongoose.model('Episode', {
     unique: true,
     required: true
   },
+  writers: [{
+    type: String
+  }],
   videos: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Video'

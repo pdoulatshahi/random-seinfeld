@@ -15,16 +15,22 @@
       <table class="striped">
         <tr>
           <td class="left">Season</td>
-          <td class="right">{{episode.season}}</td>
+          <td class="right-align">{{episode.season}}</td>
         </tr>
         <tr>
           <td class="left">Episode</td>
-          <td class="right">{{episode.episode}}</td>
+          <td class="right-align">{{episode.episode}}</td>
         </tr>
         <tr>
           <td class="left">Originally Aired</td>
-          <td class="right">{{episode.firstAired}}</td>
+          <td class="right-align">{{episode.firstAired}}</td>
         </tr>
+        {{#if episode.writers}}
+          <tr>
+            <td class="left">Written By</td>
+            <td class="right-align">{{episode.writers}}</td>
+          </tr>
+        {{/if}}
       </table>
     </div>
   </div>
