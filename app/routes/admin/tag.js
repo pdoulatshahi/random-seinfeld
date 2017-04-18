@@ -85,18 +85,22 @@ module.exports = function(passport) {
       if (!tag) {
         req.flash('error', 'No tag found');
         res.redirect('/admin/tags');
-      } else {
-        Tag.remove(existingParams).then((tag) => {
+      }
+      tag.remove().then((tag) => {
+        var title = tag.title;
+        console.log(title);
+        Video.update({}, {$pull: {tags: {title}}}, {multi: true}).then((videos) => {
           req.flash('success', 'Tag deleted');
           res.redirect('/admin/tags');
-        }, (e) => {
-          res.status(400).send(e);
         })
-      }
+      })
+      }, (e) => {
+        res.status(400).send(e);
+      })
     }, (e) => {
       res.status(400).end(e);
     })
-  })
+  // })
 
   return router;
 }

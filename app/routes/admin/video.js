@@ -15,7 +15,7 @@ var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    Video.find({}).populate('_episode').then((videos) => {
+    Video.find({}).populate('_episode tags').then((videos) => {
       res.render('admin/videos/index', {videos, pageTitle: 'All Videos'});
     })
   })
@@ -31,13 +31,13 @@ module.exports = function(passport) {
       res.redirect('/admin/videos/new');
     }
     var title = req.body.title;
-    var titleSlug = slug(title).toLowerCase();
+    var titleSlug = slug(title);
     var video = new Video({title, slug: titleSlug, youTubeId});
     var tagTitleArray = req.body.tags.split(", ");
     Tag.find({title: {"$in": tagTitleArray}}).then((tags) => {
       var finalTagArray = [];
       tags.forEach((tag) => {
-        finalTagArray.push({title: tag.title})
+        finalTagArray.push(tag._id);
       });
       var episodeTitle = req.body.episode_title;
       Episode.findOne({title: episodeTitle}).then((ep) => {
@@ -46,8 +46,20 @@ module.exports = function(passport) {
         }
         video.tags = finalTagArray;
         video.save().then((savedVid) => {
-          req.flash('success', 'Video saved');
-          res.redirect('/admin/videos');
+          Tag.update({_id: {$in: savedVid.tags}}, {$push: {"videos": savedVid._id}}, {multi: true}).exec().then(() => {
+            if (savedVid._episode) {
+              Episode.findByIdAndUpdate(savedVid._episode, {$push: {"videos": savedVid._episode}}, {safe: true}, (err, model) => {
+                if (err) throw err;
+                req.flash('success', 'Video successfully saved');
+                res.redirect('/admin/videos');
+              })
+            } else {
+              req.flash('success', 'Video successfully saved');
+              res.redirect('/admin/videos');
+            }
+          }).catch((e) => {
+            res.status(400).send(e);
+          })
         })
       }).catch((e) => {
         res.status(400).send(e);
@@ -76,7 +88,6 @@ module.exports = function(passport) {
         req.flash('error', 'Cannot find video');
         res.redirect('/admin/videos');
       }
-      console.log(video);
       var title = req.body.title;
       var titleSlug = slug(title).toLowerCase();
       var youTubeId = getYouTubeId(req.body.youtube_url);
@@ -88,9 +99,8 @@ module.exports = function(passport) {
       Tag.find({title: {"$in": tagTitleArray}}).then((tags) => {
         var finalTagArray = [];
         tags.forEach((tag) => {
-          finalTagArray.push({title: tag.title})
+          finalTagArray.push(tag.title)
         });
-        console.log(finalTagArray);
         var episodeTitle = req.body.episode_title;
         Episode.findOne({title: episodeTitle}).then((ep) => {
           if (ep) {
@@ -113,12 +123,6 @@ module.exports = function(passport) {
       })
     })
   });
-
-
-
-
-
-
 
   return router;
 }

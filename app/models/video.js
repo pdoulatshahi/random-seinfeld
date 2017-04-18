@@ -21,10 +21,8 @@ var VideoSchema = new Schema({
     ref: 'Episode'
   },
   tags: [{
-    title: {
-      type: String,
-      required: true
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tag'
   }],
   createdAt: {
     type: Date,
