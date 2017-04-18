@@ -72,11 +72,39 @@ router.get('/episode/:slug', (req, res) => {
 })
 
 router.get('/random-video', (req, res) => {
-  Video.count().exec(function (err, count) {
-    var random = Math.floor(Math.random() * count)
-    Video.findOne().skip(random).populate('_episode tags').exec((err, video) => {
-      res.render('home/random_video', {video, pageTitle: 'Random Seinfeld Clip'})
+  var tag = req.query.tag;
+  if (tag) {
+    Tag.findOne({slug: tag}).populate('videos').then((tag) => {
+      if (!tag) {
+        req.flash('error', 'No video found');
+        res.redirect('/');
+      } else {
+        var random = Math.floor(Math.random() * tag.videos.length);
+        var videoSlug = tag.videos[random].slug;
+        res.redirect('/video/' + videoSlug);
+      }
+    }).catch((e) => {
+      res.status(400).send(e);
     })
+  } else {
+    Video.count().exec((err, count) => {
+      var random = Math.floor(Math.random() * count);
+      Video.findOne().skip(random).exec((err, video) => {
+        res.redirect('/video/' + video.slug)
+      }).catch((e) => {
+        res.status(400).send(e);
+      })
+    }).catch((e) => {
+      res.status(400).send(e);
+    })
+  }
+})
+
+router.get('/video/:slug', (req, res) => {
+  Video.findOne({slug: req.params.slug}).populate('tags _episode').then((video) => {
+    res.render('home/video', {video})
+  }).catch((e) => {
+    res.status(400).send();
   })
 })
 

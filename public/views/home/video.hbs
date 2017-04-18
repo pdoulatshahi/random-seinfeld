@@ -10,9 +10,10 @@
       {{/if}}
       {{#if video.tags}}
         <li class="collection-item">
+          Get another video from:
           {{#each video.tags}}
             <div class="chip blue-grey lighten-4">
-              {{this.title}}
+              <a href="/random-video?tag={{this.slug}}">{{this.title}}</a>
             </div>
           {{/each}}
         </li>
