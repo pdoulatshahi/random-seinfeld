@@ -10,7 +10,13 @@
 </div>
 
 <div class="container">
-  <div class="video-info-container">
+
+  <div class="summary-container">
+    <p>{{{episode.summary}}}</p>
+  </div>
+
+  
+  <div class="episode-info-container">
     <div class="card collection">
       <table class="striped">
         <tr>
@@ -34,13 +40,6 @@
       </table>
     </div>
   </div>
-
-
-
-  <div class="summary-container">
-    <p>{{{episode.summary}}}</p>
-  </div>
-
 
   <div class="episode-buttons center-align">
     <a class="waves-effect waves-red btn" id="web-watch-link" target="_blank" href="{{episode.webLink}}/">Watch at Hulu</a>
