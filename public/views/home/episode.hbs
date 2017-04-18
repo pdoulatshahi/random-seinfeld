@@ -2,6 +2,12 @@
 
 <div class="container mobile-container">
 
+  <div class="episode-buttons center-align">
+    <a class="waves-effect waves-red btn" id="web-watch-link" target="_blank" href="{{episode.webLink}}/">Watch at Hulu</a>
+    <a class="waves-effect waves-red btn" id="mobile-watch-link" target="_blank" href="{{episode.mobileLink}}/">Watch on Hulu App</a>
+    <a class="waves-effect waves-light btn" target="_blank" href="http://www.imdb.com/title/{{episode.imdbId}}/">More info at IMDB</a>
+  </div>
+
   <div class="center-align img-wrapper">
     <div class="img-container lazyload"  style="background-image:url({{episode.thumbnail}})" data-bg="{{episode.image}}">
     </div>
@@ -15,7 +21,7 @@
     <p>{{{episode.summary}}}</p>
   </div>
 
-  
+
   <div class="episode-info-container">
     <div class="card collection">
       <table class="striped">
@@ -39,12 +45,6 @@
         {{/if}}
       </table>
     </div>
-  </div>
-
-  <div class="episode-buttons center-align">
-    <a class="waves-effect waves-red btn" id="web-watch-link" target="_blank" href="{{episode.webLink}}/">Watch at Hulu</a>
-    <a class="waves-effect waves-red btn" id="mobile-watch-link" target="_blank" href="{{episode.mobileLink}}/">Watch on Hulu App</a>
-    <a class="waves-effect waves-light btn" target="_blank" href="http://www.imdb.com/title/{{episode.imdbId}}/">More info at IMDB</a>
   </div>
 
 </div>
