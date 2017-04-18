@@ -124,6 +124,20 @@ module.exports = function(passport) {
     })
   });
 
+  router.get('/:slug/delete', ensureAuthenticated, (req, res) => {
+    Video.findOne({slug: req.params.slug}).then((video) => {
+      if (!video) {
+        req.flash('error', 'No video to delete');
+        res.redirect('/admin/videos');
+      } else {
+        video.remove().then(() => {
+          req.flash('success', 'Video deleted');
+          res.redirect('/admin/videos');
+        })
+      }
+    })
+  })
+
   return router;
 }
 
