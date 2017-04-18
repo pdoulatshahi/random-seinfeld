@@ -8,14 +8,12 @@ const passport = require('./../../config/passport');
 
 const getYouTubeId = require('get-youtube-id');
 const slug = require('slug');
-const async = require('async');
-
 const express = require('express');
 var router = express.Router();
 
 module.exports = function(passport) {
   router.get('/', ensureAuthenticated, (req, res) => {
-    Video.find({}).populate('_episode tags').then((videos) => {
+    Video.find({}).sort({createdAt: 'desc'}).populate('_episode tags').then((videos) => {
       res.render('admin/videos/index', {videos, pageTitle: 'All Videos'});
     })
   })

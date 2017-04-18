@@ -114,6 +114,9 @@ td {
 .suggested-span:last-child {
   padding-left: 10px;
 }
+.tag-row {
+  height: 94px;
+}
 @media (max-width: 992px) {
   .header-container {
     width: 100%;

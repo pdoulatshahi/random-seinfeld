@@ -20,6 +20,7 @@
     "express-session": "^1.15.2",
     "get-youtube-id": "^1.0.0",
     "guidebox": "^1.1.1",
+    "handlebars-intl": "^1.1.2",
     "imdb-api": "^2.2.2",
     "jsonfile": "^2.4.0",
     "lodash": "^4.17.4",

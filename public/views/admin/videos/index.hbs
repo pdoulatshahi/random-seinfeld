@@ -2,31 +2,40 @@
 
   <div class="row">
     {{#each videos}}
-      <div class="col s6 m4">
+      <div class="col m6 l4">
         <div class="video-container">
           <iframe width="560" height="315" src="//www.youtube.com/embed/{{this.youTubeId}}" frameborder="0" allowfullscreen></iframe>
         </div>
-        <ul class="collection">
-          <li class="collection-item">{{this.title}}</li>
-          {{#if this._episode}}
-            <li class="collection-item">Episode: {{this._episode.title}}</li>
-          {{/if}}
-          {{#if this.tags}}
-            <li class="collection-item">
-              {{#each this.tags}}
+        <div class="card collection">
+          <table class="striped">
+            <tr>
+              <td class="left">Title</td>
+              <td class="right-align">{{this.title}}</td>
+            </tr>
+            <tr>
+              <td class="left">Episode</td>
+              <td class="right-align">
                 <div class="chip blue-grey lighten-4">
-                  {{this.title}}
+                  {{#if this._episode}}
+                    <a href="/episode/{{video._episode.slug}}">{{this._episode.title}}</a>
+                  {{else}}
+                    Compilation Clip
+                  {{/if}}
                 </div>
-              {{/each}}
-            </li>
-          {{/if}}
-        </ul>
-        <a href="/admin/videos/{{this.slug}}/edit" class="btn waves-effect waves-light">Edit
-          <i class="material-icons right">edit</i>
-        </a>
-        <a href="/admin/videos/{{this.slug}}/delete" class="btn waves-effect waves-light">Delete
-          <i class="material-icons right">delete</i>
-        </a>
+              </td>
+            </tr>
+            <tr class="tag-row">
+              <td class="left">Tags</td>
+              <td class="right-align">
+                {{#each this.tags}}
+                  <div class="chip blue-grey lighten-4">
+                    <a href="/random-video?tag={{this.slug}}">{{this.title}}</a>
+                  </div>
+                {{/each}}
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     {{/each}}
   </div>
