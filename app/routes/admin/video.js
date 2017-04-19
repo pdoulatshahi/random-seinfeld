@@ -14,24 +14,31 @@ var router = express.Router();
 
 module.exports = function(passport) {
 
-  router.use(paginate.middleware(10, 50))
+  router.use(paginate.middleware(9, 50))
   router.get('/', ensureAuthenticated, (req, res) => {
-    var query = {};
-    var options = {
-      sort: {createdAt: - 1},
-      populate: '_episode tags',
-      page: req.query.page,
-    }
-    Video.paginate(query, options).then((result) => {
-      res.render('admin/videos/index', {
-        videos: result.docs,
-        page: result.page,
-        pages: result.pages,
-        pageTitle: 'All Videos'
+    if (!req.query.p) {
+      res.redirect('/admin/videos?p=1');
+    } else {
+      var query = {};
+      var options = {
+        sort: {createdAt: - 1},
+        populate: '_episode tags',
+        page: req.query.p,
+        limit: 9
+      }
+      Video.paginate(query, options).then((result) => {
+        res.render('admin/videos/index', {
+          videos: result.docs,
+          pagination: {
+            page: result.page,
+            pageCount: result.pages
+          },
+          pageTitle: 'All Videos'
+        })
+      }).catch((e) => {
+        res.status(400).send(e);
       })
-    }).catch((e) => {
-      res.status(400).send(e);
-    })
+    }
   })
 
   router.get('/new', ensureAuthenticated, (req, res) => {

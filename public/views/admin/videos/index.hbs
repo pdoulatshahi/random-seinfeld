@@ -1,5 +1,7 @@
 <div class="container">
 
+  {{> paginate}}
+
   <div class="row">
     {{#each videos}}
       <div class="col m6 l4">
@@ -39,6 +41,8 @@
       </div>
     {{/each}}
   </div>
+
+  {{> paginate}}
 
   <hr>
 

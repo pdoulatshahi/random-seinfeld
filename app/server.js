@@ -4,6 +4,7 @@ require('./config/config');
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const paginate = require('handlebars-paginate');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -44,7 +45,8 @@ app.engine('.hbs', exphbs({
         return options.fn(this);
       }
       return options.inverse(this);
-    }
+    },
+    paginate: paginate
   }
 }))
 
