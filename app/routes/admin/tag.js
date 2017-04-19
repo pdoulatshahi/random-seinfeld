@@ -5,7 +5,6 @@ const passport = require('./../../config/passport');
 
 const getYouTubeId = require('get-youtube-id');
 const slug = require('slug');
-const async = require('async');
 
 const express = require('express');
 var router = express.Router();

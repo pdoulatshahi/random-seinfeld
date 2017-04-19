@@ -9,12 +9,28 @@ const passport = require('./../../config/passport');
 const getYouTubeId = require('get-youtube-id');
 const slug = require('slug');
 const express = require('express');
+const paginate = require('express-paginate');
 var router = express.Router();
 
 module.exports = function(passport) {
+
+  router.use(paginate.middleware(10, 50))
   router.get('/', ensureAuthenticated, (req, res) => {
-    Video.find({}).sort({createdAt: 'desc'}).populate('_episode tags').then((videos) => {
-      res.render('admin/videos/index', {videos, pageTitle: 'All Videos'});
+    var query = {};
+    var options = {
+      sort: {createdAt: - 1},
+      populate: '_episode tags',
+      page: req.query.page,
+    }
+    Video.paginate(query, options).then((result) => {
+      res.render('admin/videos/index', {
+        videos: result.docs,
+        page: result.page,
+        pages: result.pages,
+        pageTitle: 'All Videos'
+      })
+    }).catch((e) => {
+      res.status(400).send(e);
     })
   })
 

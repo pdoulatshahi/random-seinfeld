@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 
 var VideoSchema = new Schema({
@@ -30,6 +31,8 @@ var VideoSchema = new Schema({
     default: Date.now
   }
 })
+
+VideoSchema.plugin(mongoosePaginate);
 
 VideoSchema.pre('remove', function (next) {
   var video = this;
