@@ -5,8 +5,9 @@
   <div class="row">
     {{#each videos}}
       <div class="col m6 l4">
-        <div class="video-container">
-          <iframe width="560" height="315" src="//www.youtube.com/embed/{{this.youTubeId}}" frameborder="0" allowfullscreen></iframe>
+        <div class="youtube video-container" data-embed="{{this.youTubeId}}">
+          <div class="play-button"></div>
+          <!-- <iframe width="560" height="315" src="//www.youtube.com/embed/{{this.youTubeId}}" frameborder="0" allowfullscreen></iframe> -->
         </div>
         <div class="card collection">
           <table class="striped">
