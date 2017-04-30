@@ -1,10 +1,6 @@
 require('./../config/config');
 
-const mongoose = require('mongoose');
-
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://heroku_09swj8s4:6puc1s1ibi41v54lb90hq41r8s@ds111589.mlab.com:11589/heroku_09swj8s4');
-
+const {mongoose} = require('./../db/mongoose');
 const {Episode} = require('./../models/episode');
 
 const omdb = require('omdb');
@@ -24,8 +20,12 @@ Episode.find({}).then((episodes) => {
   episodes.forEach((episode) => {
     if (episode.imdbId.length > 0) {
       omdb.get({imdb: episode.imdbId}, (err, ep) => {
-        var writers = _.uniq(ep.writers).sort();
-        episode.writers = writers;
+        if (ep.writers) {
+          var writers = _.uniq(ep.writers).sort();
+          episode.writers = writers;
+        }
+        var imdbRating = ep.imdb.rating;
+        episode.imdbRating = imdbRating;
         episode.save();
       })
     }

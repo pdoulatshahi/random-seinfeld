@@ -1,5 +1,6 @@
 const {mongoose} = require('./../db/mongoose');
 const {Episode} = require('./../models/episode');
+const {Quote} = require('./../models/quote');
 const {Video} = require('./../models/video');
 const {Tag} = require('./../models/tag');
 
@@ -68,7 +69,17 @@ router.get('/episode/:slug', (req, res) => {
     if (episode.writers.length > 0) {
       episode.writers = episode.writers.join(', ');
     }
-    res.render('home/episode', {episode, seasons, pageTitle: episode.title})
+    var quoteIdArray = episode.quotes;
+    if (quoteIdArray.length > 0) {
+      var quoteId = quoteIdArray[Math.floor(Math.random() * quoteIdArray.length)];
+      Quote.findById(quoteId).then((thisQuote) => {
+        var quote = thisQuote.text;
+        console.log(quote);
+        res.render('home/episode', {episode, quote, seasons, pageTitle: episode.title})
+      })
+    } else {
+      res.render('home/episode', {episode, seasons, pageTitle: episode.title})
+    }
   }).catch((e) => {
     res.status(400).send();
   })

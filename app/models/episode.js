@@ -64,7 +64,11 @@ var Episode = mongoose.model('Episode', {
   videos: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Video'
-  }]
+  }],
+  quotes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Quote'
+  }],
 });
 
 module.exports = {Episode}
