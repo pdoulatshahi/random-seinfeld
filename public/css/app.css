@@ -1,0 +1,202 @@
+body {
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 100vh;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  font-family: 'Lato', sans-serif; }
+
+h1 {
+  font-size: 3.3rem;
+  font-weight: 500; }
+
+main {
+  -ms-flex: 1 0 auto;
+      flex: 1 0 auto; }
+
+nav .brand-logo {
+  font-size: 1.7em; }
+
+.button-container {
+  margin-top: 20px; }
+
+footer.page-footer {
+  padding: 10px 0; }
+
+footer.page-footer span {
+  color: white; }
+
+.season-checkbox-container {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+.season-checkbox {
+  padding: 0 10px; }
+
+.button-container {
+  margin-top: 20px; }
+
+.episode-title {
+  text-transform: capitalize; }
+
+.img-wrapper {
+  width: 550px;
+  max-width: 100%;
+  margin: 0 auto; }
+
+.form-img-container {
+  margin-bottom: 20px; }
+
+.img-container {
+  background-color: #E6E6E6;
+  padding-bottom: 56.25%;
+  background-size: 100%; }
+
+.episode-info-container {
+  max-width: 550px;
+  margin: 15px auto 0;
+  font-size: 14px; }
+
+.episode-info-container .left {
+  font-weight: bold; }
+
+td.left {
+  font-weight: bold; }
+
+td {
+  padding: 10px 5px; }
+
+.summary-container {
+  max-width: 550px;
+  margin: 0 auto;
+  font-size: 16px; }
+
+.edit-button-container {
+  margin-top: 10px; }
+
+.episode-buttons {
+  margin: 20px 0; }
+
+.episode-buttons a, .button-container .btn {
+  margin-bottom: 10px; }
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto; }
+
+.youtube-container {
+  max-width: 540px;
+  margin: 0 auto; }
+
+.toast {
+  background-color: #ee6e73; }
+
+.table-container {
+  max-width: 700px;
+  margin: 10px auto; }
+
+.chip {
+  font-size: 14px;
+  font-weight: bold; }
+
+.chip i {
+  font-size: 16px; }
+
+#mobile-watch-link {
+  display: none; }
+
+.side-nav li a.collapsible-header {
+  font-weight: bold; }
+
+.suggested-span:first-child {
+  border-right: 1px solid black;
+  padding-right: 10px; }
+
+.suggested-span:last-child {
+  padding-left: 10px; }
+
+.tag-row {
+  height: 94px; }
+
+.quote-container {
+  width: 550px;
+  max-width: 100%;
+  margin: 0 auto; }
+
+.quote-container span.character {
+  font-weight: bold; }
+
+.quote-container span.fine {
+  font-style: italic; }
+
+.quote-container span.character::before {
+  content: '\A';
+  white-space: pre; }
+
+.quote-container span.character:first-child::before {
+  content: ''; }
+
+@media (max-width: 992px) {
+  .header-container {
+    width: 100%; } }
+
+@media (max-width: 768px) {
+  .mobile-container {
+    width: 100%; }
+  .episode-info-container {
+    max-width: 400px; } }
+
+.youtube {
+  background-color: #000;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer; }
+
+.youtube img {
+  width: 100%;
+  top: -16.84%;
+  left: 0;
+  opacity: 0.7; }
+
+.youtube .play-button {
+  width: 90px;
+  height: 60px;
+  background-color: #333;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  opacity: 0.8;
+  border-radius: 6px; }
+
+.youtube .play-button:before {
+  content: "";
+  border-style: solid;
+  border-width: 15px 0 15px 26.0px;
+  border-color: transparent transparent transparent #fff; }
+
+.youtube img,
+.youtube .play-button {
+  cursor: pointer; }
+
+.youtube img,
+.youtube iframe,
+.youtube .play-button,
+.youtube .play-button:before {
+  position: absolute; }
+
+.youtube .play-button,
+.youtube .play-button:before {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0); }
+
+.youtube iframe {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0; }
