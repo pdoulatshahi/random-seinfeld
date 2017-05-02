@@ -58,10 +58,6 @@ function buildCSS() {
 function buildJS() {
   return gulp.src(src.js)
     .pipe(include())
-    .pipe(browserify({
-      insertGlobals: true,
-      debug: true
-    }))
     .pipe(concat('app.js'))
     .pipe(gulp.dest(dist.js))
 }

@@ -87,7 +87,6 @@ module.exports = function(passport) {
       }
       tag.remove().then((tag) => {
         var title = tag.title;
-        console.log(title);
         Video.update({}, {$pull: {tags: {title}}}, {multi: true}).then((videos) => {
           req.flash('success', 'Tag deleted');
           res.redirect('/admin/tags');

@@ -74,7 +74,6 @@ router.get('/episode/:slug', (req, res) => {
       var quoteId = quoteIdArray[Math.floor(Math.random() * quoteIdArray.length)];
       Quote.findById(quoteId).then((thisQuote) => {
         var quote = thisQuote.text;
-        console.log(quote);
         res.render('home/episode', {episode, quote, seasons, pageTitle: episode.title})
       })
     } else {
