@@ -8,7 +8,26 @@ const express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('home/index', {pageTitle: 'The App About Nothing'});
+  Episode.count().exec((err, count) => {
+    var random = Math.floor(Math.random() * count);
+    Episode.findOne().skip(random).exec((err, episode) => {
+      Video.count().exec((err, count) => {
+        var random = Math.floor(Math.random() * count);
+        Video.findOne().skip(random).exec((err, video) => {
+          res.render('home/index', {episode, video, pageTitle: 'The App About Nothing'});
+        }).catch((e) => {
+          res.status(400).send(e);
+        })
+      }).catch((e) => {
+        res.status(400).send(e);
+      })
+    }).catch((e) => {
+      res.status(400).send(e);
+    })
+  }).catch((e) => {
+    res.status(400).send(e);
+  })
+
 });
 
 router.get('/episodes/all', (req, res) => {

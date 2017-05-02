@@ -1,3 +1,5 @@
+$primary-color: red !default;
+
 body {
   display: flex;
   min-height: 100vh;
@@ -7,6 +9,9 @@ body {
 h1 {
   font-size: 3.3rem;
   font-weight: 500;
+}
+h2 {
+  font-size: 2.2rem;
 }
 main {
   flex: 1 0 auto;
